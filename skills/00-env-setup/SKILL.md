@@ -1,5 +1,5 @@
 ---
-name: cc-env-setup
+name: claude-env-setup
 description: Claude Code 環境建置（Node.js, uv）。說「建置環境」「安裝開發環境」時載入。
 ---
 

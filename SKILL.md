@@ -30,10 +30,16 @@ description: Claude Code 懶人包全集 — 環境建置、MCP 串接、技能�
 ## 步驟三：依序安裝
 
 ```bash
-npx skills add changyiwu/claude-code-lazy-packs --skill <名稱> -g -y
+npx skills add changyiwu/claude-code-lazy-packs --skill <資料夾名稱> -g -y
 ```
 
-若無法使用 `npx skills add`，改手動讀取 `skills/<名稱>/SKILL.md` 執行。
+> 📌 上表的「Skill 名稱」是 **repo 資料夾名**（帶編號，對應懶人包）。
+> 每支技能的 frontmatter `name` 則是 `claude-<主題>`（例如 `02-github` → `claude-github`），
+> 安裝到全域後資料夾也應該叫 `claude-<主題>`，才不會跟 OpenCode / Codex / AntiGravity
+> 的同名技能混在一起。
+
+若無法使用 `npx skills add`，改手動把 `skills/<資料夾名稱>/SKILL.md`
+複製到 `~/.claude/skills/claude-<主題>/SKILL.md`。
 
 ## 步驟四：回報
 

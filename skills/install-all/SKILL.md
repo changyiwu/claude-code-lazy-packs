@@ -1,5 +1,5 @@
 ---
-name: cc-install-all
+name: claude-install-all
 description: 一次安裝所有 Claude Code 懶人包技能。說「全部安裝」「裝完所有 Claude Code 懶人包」時載入。
 ---
 

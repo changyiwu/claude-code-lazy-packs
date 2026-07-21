@@ -1,5 +1,5 @@
 ---
-name: cc-second-brain
+name: claude-second-brain
 description: Claude Code 第二大腦三層結構設定。說「建立第二大腦」時載入。
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: cc-gemini
+name: claude-gemini
 description: Claude Code 設定 Gemini 免費 API。說「設定 Gemini」「Gemini API」時載入。
 ---
 

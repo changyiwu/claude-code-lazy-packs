@@ -1,5 +1,5 @@
 ---
-name: cc-obsidian
+name: claude-obsidian
 description: Claude Code 連接 Obsidian MCPVault。說「連接 Obsidian」時載入。
 ---
 

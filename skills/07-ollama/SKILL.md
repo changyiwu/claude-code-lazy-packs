@@ -1,5 +1,5 @@
 ---
-name: cc-ollama
+name: claude-ollama
 description: Claude Code 安裝本地 AI Ollama。說「安裝 Ollama」「本地 AI」時載入。
 ---
 

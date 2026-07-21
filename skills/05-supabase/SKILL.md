@@ -1,5 +1,5 @@
 ---
-name: cc-supabase
+name: claude-supabase
 description: Claude Code 連接 Supabase MCP。說「連接 Supabase」時載入。
 ---
 

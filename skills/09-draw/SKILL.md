@@ -1,5 +1,5 @@
 ---
-name: cc-draw
+name: claude-draw
 description: Claude Code 安裝 gpt-image-2 生圖 skill。說「安裝生圖」「畫圖」「生圖」時載入。
 ---
 

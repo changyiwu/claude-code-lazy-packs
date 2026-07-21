@@ -1,5 +1,5 @@
 ---
-name: cc-notebooklm
+name: claude-notebooklm
 description: Claude Code 連接 NotebookLM MCP。說「連接 NotebookLM」時載入。
 ---
 

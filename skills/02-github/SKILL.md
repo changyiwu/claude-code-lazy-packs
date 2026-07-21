@@ -1,5 +1,5 @@
 ---
-name: cc-github
+name: claude-github
 description: Claude Code 連接 GitHub CLI。說「連接 GitHub」時載入。
 ---
 

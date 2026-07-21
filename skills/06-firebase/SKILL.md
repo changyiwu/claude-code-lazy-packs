@@ -1,5 +1,5 @@
 ---
-name: cc-firebase
+name: claude-firebase
 description: Claude Code 連接 Firebase MCP。說「連接 Firebase」時載入。
 ---
 

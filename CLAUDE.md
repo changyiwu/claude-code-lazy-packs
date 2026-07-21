@@ -38,6 +38,23 @@ claude-code-lazy-packs/
 - 新增懶人包時接續最大編號，不插號
 - 非特定主題的技能（如 `install-all`）不佔編號
 
+## 技能命名規則
+
+repo 內的資料夾帶編號（方便對應懶人包），但**技能名稱一律用 `claude-` 前綴**：
+
+| | 格式 | 範例 |
+|---|------|------|
+| repo 資料夾 | `<編號>-<主題>` | `skills/02-github/` |
+| frontmatter `name` | `claude-<主題>` | `name: claude-github` |
+| 安裝後的全域資料夾 | `claude-<主題>` | `~/.claude/skills/claude-github/` |
+
+前綴是為了跟同一台電腦上其他 agent 的技能區隔——OpenCode 用 `opencode-`、
+Codex 用 `codex-`、AntiGravity 用 `antigravity-`，全部裝在各自的全域技能目錄，
+沒有前綴會分不出來是哪個 agent 的。
+
+> ⚠️ 新增技能時，`name:` 一定要是 `claude-<主題>`，且**與安裝後的資料夾同名**
+> （其他 agent 的慣例是資料夾名 == `name`，保持一致才好對照）。
+
 ## 修改懶人包時的注意事項
 
 新增或修改懶人包後，記得同步更新：
