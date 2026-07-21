@@ -1,0 +1,17 @@
+# 本機 Claude Code 設定（含個人路徑，不公開）
+.mcp.json
+.claude/settings.local.json
+
+# 作業系統
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 編輯器
+.vscode/
+.idea/
+
+# 環境變數與金鑰
+.env
+*.env
+!*.env.example
