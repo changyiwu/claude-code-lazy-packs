@@ -2,8 +2,8 @@
 title: 'Claude Code 懶人包 #01：連接 NotebookLM（支援 opencode）'
 date: '2026-06-10'
 type: 懶人包
-version: v0.3
-status: 加入 opencode 支援
+version: v0.4
+status: 實測修正版
 tags:
   - Claude-Code
   - opencode
@@ -13,8 +13,8 @@ tags:
 ---
 # Claude Code / opencode 懶人包 #01：連接 Google NotebookLM
 
-> 版本：v0.3（加入 opencode 支援、路徑陷阱警告）
-> 更新日期：2026-06-10
+> 版本：v0.4（對應 nlm 0.8.x、修正 MCP 設定位置）
+> 更新日期：2026-07-22
 
 > 📌 **本懶人包可獨立執行**：會自動檢查並安裝所需工具，不需要先看過其他懶人包。你只要確認下方「先備條件」即可開始。
 
@@ -171,44 +171,46 @@ nlm doctor
 
 依照你使用的 agent 選擇對應的設定方式：
 
+`nlm setup add` 從 0.8.x 起已內建支援多種 agent，用 `nlm setup add --help` 可看到完整清單
+（claude-code、gemini、github-copilot、cursor、windsurf、cline、antigravity、opencode、json）。
+
 #### 給 Claude Code 使用者
 
 ```bash
 nlm setup add claude-code
 ```
 
+> ⚠️ **這一步在桌面版通常會失敗**：`nlm setup` 是靠呼叫 `claude` CLI 來寫設定的，
+> 桌面版沒有 CLI 時會顯示 `Warning: 'claude' command not found in PATH`，
+> 並建議你「手動加到 `~/.claude/settings.json`」——**那個建議是錯的**，
+> 現行 Claude Code 的 settings schema 不接受 `mcpServers`，寫進去會被擋下。
+>
+> 請改為手動寫入 `~/.claude.json` 的最上層（保留檔案原有內容，只新增這段）：
+> ```json
+> {
+>   "mcpServers": {
+>     "notebooklm": {
+>       "command": "C:/Users/[使用者]/.local/bin/notebooklm-mcp.EXE",
+>       "args": ["--transport", "stdio"]
+>     }
+>   }
+> }
+> ```
+> macOS / Linux 的 command 通常是 `~/.local/bin/notebooklm-mcp`。
+> 路徑用 `nlm doctor` 查（它會直接印出 `notebooklm-mcp` 的實際位置）。
+
 #### 給 opencode 使用者
 
-`nlm setup` 目前未內建 opencode 支援，需手動編輯 `opencode.json`（位於 `~\.config\opencode\`）。
-
-請 Agent 幫你檢查 opencode 設定檔：
-
 ```bash
-cat ~/.config/opencode/opencode.json
+nlm setup add opencode
 ```
 
-在 `mcp` 區塊中加入（或修正）以下設定：
+> 📌 舊版（0.6.x）需要手動編輯 `~/.config/opencode/opencode.json`，0.8.x 起已不需要。
 
-```json
-"notebooklm": {
-  "type": "local",
-  "command": ["<pip/uv 的 notebooklm-mcp.exe 完整路徑>", "--transport", "stdio"],
-  "enabled": true
-}
-```
-
-> ⚠️ **重要：路徑陷阱！**
-> 有些電腦上可能同時存在兩個 `notebooklm-mcp.exe`：
-> - ✅ **正確**：pip 安裝的，位於 `Python314\Scripts\notebooklm-mcp.exe`（或 uv 的 bin 目錄）
-> - ❌ **錯誤**：獨立的 `.local\bin\notebooklm-mcp.EXE`，此為 PyInstaller 打包的獨立執行檔，**已損壞**，會報 `ModuleNotFoundError: No module named 'notebooklm_tools'`
->
-> 請務必使用 pip 或 uv 安裝的路徑。如果不確定正確路徑，用以下指令查詢：
-> ```bash
-> pip show notebooklm-mcp-cli -f | grep notebooklm-mcp
-> # 或
-> where notebooklm-mcp.exe   (Windows)
-> which notebooklm-mcp       (macOS/Linux)
-> ```
+> 📌 **關於 `.local\bin` 路徑**：舊版懶人包曾警告 `.local\bin\notebooklm-mcp.EXE`
+> 是損壞的 PyInstaller 打包版，會報 `ModuleNotFoundError: No module named 'notebooklm_tools'`。
+> **此問題在 0.8.8 已不存在**——uv tool install 本來就會裝到 `~/.local/bin`，實測可正常啟動。
+> 若你仍遇到該錯誤，用 `nlm doctor` 確認實際路徑，或改用 pip 安裝的版本。
 
 設定完成後，確認：
 
@@ -305,9 +307,11 @@ Documents/
 | `uv: command not found` | Windows 需重開 PowerShell；macOS/Linux 需執行 `source ~/.bashrc` 或 `source ~/.zshrc` |
 | 登入後 `nlm doctor` 顯示未認證 | 重新執行 `nlm login`，確認瀏覽器登入成功 |
 | 瀏覽器沒有自動開啟 | 手動開啟瀏覽器登入 Google，或嘗試 `nlm login --manual` |
-| Claude Code 看不到 NotebookLM 工具 | 確認有執行 `nlm setup add claude-code`，並完全關閉再重啟 Claude Code |
-| opencode 看不到 NotebookLM 工具 | 檢查 `opencode.json` 中 `mcp.notebooklm.command` 路徑是否指向正確的 `notebooklm-mcp.exe`（見步驟三之「路徑陷阱」）|
-| `ModuleNotFoundError: No module named 'notebooklm_tools'` | ❌ 你用的是 `.local\bin\` 中損壞的獨立 exe！改用 pip 安裝的版本（見步驟三之「路徑陷阱」）|
+| Claude Code 看不到 NotebookLM 工具 | 確認設定寫在 `~/.claude.json` 而非 `settings.json`，並完全關閉再重啟 Claude Code |
+| `nlm setup add claude-code` 說找不到 `claude` 指令 | 桌面版沒有 CLI，屬正常。改為手動寫入 `~/.claude.json`（見步驟三），**不要**照它建議寫進 `settings.json` |
+| `Unrecognized field: mcpServers` | 你寫錯檔案了。MCP 設定要放 `~/.claude.json` 或專案的 `.mcp.json`，不能放 `settings.json` |
+| opencode 看不到 NotebookLM 工具 | 0.8.x 直接執行 `nlm setup add opencode` 即可；舊版才需手動編 `opencode.json` |
+| `ModuleNotFoundError: No module named 'notebooklm_tools'` | 舊版 exe 的問題，0.8.8 已修復。先 `nlm doctor` 確認實際路徑，必要時升級或改用 pip 安裝版 |
 | Windows 上指令格式錯誤 | 確認使用 PowerShell 而非 CMD，或改用 Git Bash |
 | `nlm setup list` 在 Windows 顯示亂碼 | 這是已知的 cp950 編碼問題，不影響功能 |
 
@@ -320,6 +324,7 @@ Documents/
 | 2026-04-04 | v0.1 | 初版，根據官方文件建立基本流程 |
 | 2026-04-04 | v0.2 | 加入環境檢查、復原機制、跨平台支援、常見問題擴充 |
 | 2026-06-10 | v0.3 | 加入 opencode 支援、pip 安裝方式、`.local\bin` 路徑陷阱警告、`nlm setup list` 編碼問題說明、版本更新至 v0.6.11 |
+| 2026-07-22 | v0.4 | 實測 nlm 0.8.8：opencode 已原生支援（`nlm setup add opencode`）、`.local\bin` 路徑陷阱已修復、`nlm setup add claude-code` 在桌面版會失敗且其建議的 `settings.json` 寫法無效，改為手動寫入 `~/.claude.json` |
 
 ---
 

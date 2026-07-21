@@ -1,7 +1,7 @@
 # Claude Code 懶人包 #06：連接 Firebase 資料庫
 
-> 版本：v0.7
-> 更新日期：2026-04-14
+> 版本：v0.8
+> 更新日期：2026-07-22
 
 > 📌 **本懶人包可獨立執行**：會自動檢查並安裝所需工具，不需要先看過其他懶人包。你只要確認下方「先備條件」即可開始。
 
@@ -216,6 +216,25 @@ npx -y firebase-tools@latest deploy --only firestore:rules
 ```bash
 claude mcp add firebase --scope user -- npx -y firebase-tools@latest mcp
 ```
+
+> ⚠️ **桌面版沒有 `claude` CLI 時**，手動寫入 `~/.claude.json` 的最上層
+> （保留檔案原有內容，只新增這段）。**不要寫進 `settings.json`**，
+> 現行 schema 不接受 `mcpServers`，會回 `Unrecognized field: mcpServers`：
+>
+> ```json
+> {
+>   "mcpServers": {
+>     "firebase": {
+>       "command": "C:/Users/[使用者]/AppData/Roaming/npm/firebase.cmd",
+>       "args": ["mcp"]
+>     }
+>   }
+> }
+> ```
+>
+> 💡 若已全域安裝 firebase-tools（`npm i -g firebase-tools`），直接指向 `firebase.cmd`
+> 比用 `npx -y firebase-tools@latest` 好——後者每次啟動都會重新解析套件，較慢也較易失敗。
+> macOS / Linux 的 command 用 `firebase`，路徑可用 `which firebase` 查。
 
 ---
 
