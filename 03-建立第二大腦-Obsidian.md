@@ -2,7 +2,7 @@
 title: 'Claude Code 懶人包 #03：建立第二大腦（Obsidian）'
 date: '2026-04-04'
 type: 懶人包
-version: v0.5
+version: v0.6
 status: 實測修正版
 tags:
   - Claude-Code
@@ -13,8 +13,8 @@ tags:
 ---
 # Claude Code 懶人包 #03：建立第二大腦（Obsidian）
 
-> 版本：v0.5
-> 更新日期：2026-04-06
+> 版本：v0.6
+> 更新日期：2026-07-22
 
 > 📌 **本懶人包可獨立執行**：會自動檢查並安裝所需工具，不需要先看過其他懶人包。你只要確認下方「先備條件」即可開始。
 
@@ -189,31 +189,38 @@ npm install -g @bitbonsai/mcpvault
 
 #### 5-2：寫入 MCP 設定檔
 
-> ⚠️ **重要**：為了確保 Claude Code 能正確載入 MCP，請在**三個位置**都寫入設定。
-> 這是因為不同版本的 Claude Code（桌面版、CLI、Web）讀取設定的位置不同。
+> ⚠️ **不要寫進 `settings.json`**：現行版本的 Claude Code 設定檔 schema **不接受 `mcpServers` 欄位**，
+> 寫進 `~/.claude/settings.json` 或 `.claude/settings.local.json` 會被驗證擋下並報
+> `Unrecognized field: mcpServers`。MCP 設定有自己專屬的位置，見下方。
 
-**位置 1：使用者全域設定** `~/.claude/settings.json`
+有效的位置有兩個，擇一或兩者都寫：
+
+**位置 1：使用者層（所有專案都生效）** `~/.claude.json`
+
+在這個檔案的**最上層**加入 `mcpServers`（這個檔案通常已經存在且內容很多，請保留原有內容，只新增這一段）：
 
 ```json
 {
   "mcpServers": {
     "obsidian": {
-      "command": "C:\\Users\\[使用者]\\AppData\\Roaming\\npm\\mcpvault.cmd",
+      "command": "C:/Users/[使用者]/AppData/Roaming/npm/mcpvault.cmd",
       "args": [
-        "G:\\我的雲端硬碟\\[vault名稱]"
+        "C:/Users/[使用者]/我的雲端硬碟/[vault名稱]"
       ]
     }
   }
 }
 ```
 
-**位置 2：專案設定** `[工作目錄]/.claude/settings.local.json`
+**位置 2：專案層（只在這個工作目錄生效）** `[工作目錄]/.mcp.json`
 
-（內容同上）
+新建這個檔案，內容格式與上方相同。
 
-**位置 3：專案根目錄** `[工作目錄]/.mcp.json`
-
-（內容同上）
+> 💡 專案層還需要授權才會載入。可在 `[工作目錄]/.claude/settings.local.json` 加入：
+> ```json
+> { "enabledMcpjsonServers": ["obsidian"] }
+> ```
+> （`enabledMcpjsonServers` 是合法欄位，`mcpServers` 不是。）
 
 > 📝 **macOS / Linux 的設定範例**：
 > ```json
@@ -230,8 +237,17 @@ npm install -g @bitbonsai/mcpvault
 > ```
 > macOS/Linux 通常不需要完整路徑，直接用 `mcpvault` 即可。
 
-> ⚠️ 路徑中如果有中文或空格，在 JSON 中用雙反斜線跳脫。
-> 例如：`"G:\\我的雲端硬碟\\secondbrain"`
+> ⚠️ **Windows 路徑請用正斜線**（`C:/Users/...`），不要用雙反斜線。
+> 雙反斜線在經過 shell 或腳本處理時容易被吃掉，中文路徑尤其容易變成亂碼。
+>
+> 寫完務必**讀回來驗證**，確認路徑沒有在寫入過程中被破壞：
+> ```bash
+> node -e "const o=require('C:/Users/[使用者]/.claude.json').mcpServers.obsidian; const fs=require('fs'); console.log(o.command, fs.existsSync(o.command)); console.log(o.args[0], fs.existsSync(o.args[0]))"
+> ```
+> 兩行都要顯示 `true`。
+>
+> ⚠️ 不要用 PowerShell 的 `Get-Content` 驗證含中文的路徑——它預設不是以 UTF-8 讀檔，
+> 中文會變亂碼導致 `Test-Path` 誤報「檔案不存在」。
 
 ---
 
@@ -239,7 +255,7 @@ npm install -g @bitbonsai/mcpvault
 
 > 🖐️ **需要手動操作**：請使用者完全關閉 Claude Code 桌面版，然後重新開啟。
 >
-> ⚠️ **只需要重啟一次**：如果步驟五的三個設定檔都正確寫入，重啟一次就夠了。
+> ⚠️ **只需要重啟一次**：如果步驟五的設定已正確寫入，重啟一次就夠了。
 
 重新開啟後，驗證 MCP 是否成功載入：
 
@@ -249,15 +265,18 @@ npm install -g @bitbonsai/mcpvault
 
 #### 驗證方式 2：如果工具不存在
 如果找不到 `mcp__obsidian__` 開頭的工具，代表 MCP 未成功載入，請依序排查：
-1. 確認 `~/.claude/settings.json` 中的 `command` 路徑是否正確（路徑中的檔案確實存在）
-2. 確認 vault 路徑確實存在且可存取
-3. 在終端機手動測試 MCP server 是否能啟動：
+1. 確認設定寫在 `~/.claude.json` 或 `.mcp.json`，**不是**寫在 `settings.json`
+2. 把 `command` 和 `args[0]` 讀回來驗證，確認兩個路徑都真的存在（見步驟五-2 的驗證指令）；
+   路徑含中文時特別容易在寫入過程中變成亂碼
+3. 確認 vault 路徑確實存在且可存取
+4. 在終端機手動測試 MCP server 是否能啟動：
    ```bash
    echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | mcpvault "[vault路徑]"
    ```
    如果回傳 JSON 工具清單，代表 mcpvault 本身正常，問題在 Claude Code 的設定讀取
-4. 確認 `.mcp.json` 在 Claude Code 開啟的工作目錄下
-5. 再次重啟 Claude Code
+5. 若用專案層 `.mcp.json`，確認它在 Claude Code 開啟的工作目錄下，
+   且 `.claude/settings.local.json` 已加入 `enabledMcpjsonServers`
+6. 再次重啟 Claude Code
 
 #### 驗證方式 3：新增測試筆記
 連接成功後，在 vault 中新增一篇測試筆記：
@@ -339,9 +358,9 @@ Claude 會自動：
 claude mcp remove obsidian
 
 # 如果沒有 claude CLI（桌面版），手動刪除以下檔案中的 obsidian 設定：
-# - ~/.claude/settings.json
-# - [工作目錄]/.claude/settings.local.json
+# - ~/.claude.json 的 mcpServers 區塊
 # - [工作目錄]/.mcp.json
+# - [工作目錄]/.claude/settings.local.json 的 enabledMcpjsonServers
 ```
 然後從步驟五重新開始。
 
@@ -355,9 +374,11 @@ claude mcp remove obsidian
 | Google Drive 同步衝突 | 避免在兩台裝置同時編輯同一篇筆記，等同步完成再操作 |
 | `npx: command not found` | 確認 Node.js 已安裝，重啟 Claude Code 桌面版 |
 | `claude: command not found` | Claude Code 桌面版不一定有 CLI。改用手動寫入設定檔的方式（見步驟五） |
-| 重啟後 MCP 工具仍不存在 | 確認設定檔中 `command` 使用**完整路徑**（如 `C:\\Users\\...\\mcpvault.cmd`），不要只寫 `npx` |
+| 重啟後 MCP 工具仍不存在 | 確認設定檔中 `command` 使用**完整路徑**（如 `C:/Users/.../mcpvault.cmd`），不要只寫 `npx` |
 | Windows bash 找不到 node | 新裝的 Node.js 可能不在 bash PATH 中，需要 `export PATH="/c/Program Files/nodejs:$PATH"` |
-| 設定檔寫了但沒生效 | 確認在三個位置都寫入（`~/.claude/settings.json`、`.claude/settings.local.json`、`.mcp.json`） |
+| `Unrecognized field: mcpServers` | 你寫錯檔案了。MCP 設定不能放在 `settings.json` / `settings.local.json`，要放 `~/.claude.json` 或 `.mcp.json`（見步驟五-2） |
+| 設定寫了、重啟了，工具還是沒出現 | 把 `command` 與 `args[0]` 讀回來確認路徑沒被破壞。用 shell 執行含 Windows 路徑的單行指令時，反斜線常被吃掉（`\npm` 會變成換行字元），中文也可能變亂碼。改用正斜線並寫成腳本檔 |
+| 驗證中文路徑時 `Test-Path` 說檔案不存在 | PowerShell 的 `Get-Content` 預設不是 UTF-8，讀出來的中文是亂碼。改用 Node 的 `fs.existsSync` 驗證 |
 | Obsidian 需要裝外掛嗎？ | **不需要**。mcpvault 直接讀寫 vault 資料夾的檔案，不經過 Obsidian app |
 
 ---
@@ -385,6 +406,7 @@ claude mcp remove obsidian
 | 2026-04-06 | v0.3 | 移除 obsidian-ide（obsidian-claude-code-mcp），mcpvault 已涵蓋所需功能 |
 | 2026-04-06 | v0.4 | 補充 Google Drive 桌面版完整安裝教學、修正步驟編號 |
 | 2026-04-06 | v0.5 | 實測修正：步驟五改為全域安裝 + 手動寫設定檔（解決桌面版無 CLI、npx PATH 問題），三處設定確保一次重啟就成功，補充 Windows 踩坑常見問題 |
+| 2026-07-22 | v0.6 | 實測修正：MCP 設定改寫到 `~/.claude.json` 與 `.mcp.json`（`settings.json` 已不接受 `mcpServers`），改用正斜線路徑並加入寫入後的讀回驗證，補充中文路徑亂碼與 PowerShell 編碼的排查方法 |
 
 ---
 

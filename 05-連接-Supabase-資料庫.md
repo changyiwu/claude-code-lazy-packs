@@ -257,5 +257,5 @@ claude mcp remove supabase
 - [Supabase 官網](https://supabase.com)
 - [Supabase MCP 官方文件](https://supabase.com/docs/guides/getting-started/mcp)
 - [Supabase MCP GitHub](https://github.com/supabase-community/supabase-mcp)
-- [[02-連接 GitHub|懶人包 #02：連接 GitHub]]
+- [[02-連接-GitHub|懶人包 #02：連接 GitHub]]
 - [[README|Claude Code 懶人包索引]]

@@ -11,7 +11,7 @@ description: Claude Code 安裝本地 AI Ollama。說「安裝 Ollama」「本�
 4. 如需 GPU 加速確認：`ollama run llama3.2:latest "hello"`
 
 ## 可選：加入 Claude Code MCP
-若想讓 Claude 呼叫本地模型：
+若想讓 Claude 呼叫本地模型，寫進 `~/.claude.json`（使用者層）或專案的 `.mcp.json`，**不是 `settings.json`**：
 ```json
 "mcpServers": { "ollama": { "command": "npx", "args": ["-y", "@ollama/mcp-server"] } }
 ```

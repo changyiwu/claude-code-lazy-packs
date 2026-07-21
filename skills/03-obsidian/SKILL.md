@@ -7,7 +7,7 @@ description: Claude Code 連接 Obsidian MCPVault。說「連接 Obsidian」時�
 
 1. 找 vault 路徑：搜尋含 `.obsidian` 子資料夾的目錄
 2. `npm install -g @bitbonsai/mcpvault`
-3. 用 `claude mcp add obsidian -- npx @bitbonsai/mcpvault <VAULT_PATH>` 或手動編輯 `~/.claude/settings.json`
+3. 用 `claude mcp add obsidian -- npx @bitbonsai/mcpvault <VAULT_PATH>`；桌面版沒有 CLI 時，手動寫入 `~/.claude.json` 的 `mcpServers`（使用者層）或專案根目錄的 `.mcp.json`。**不要寫進 `settings.json`，該 schema 不接受 `mcpServers`**
 4. 重啟後驗證讀寫
 
 ### 進階
