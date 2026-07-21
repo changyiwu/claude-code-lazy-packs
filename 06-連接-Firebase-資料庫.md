@@ -66,6 +66,21 @@
 
 > 💡 **`firestore_query_collection` 的 `collection_path` 不要含尾巴 `/`**：寫成 `wordcloud_words` 而非 `wordcloud_words/`，否則會報「Collection id is invalid because it contains /」。
 
+> ⚠️ **上表的 Firestore 工具不會一開始就出現**（2026-07-22 實測）。
+> Firebase MCP 啟動時只載入 `core` 與 `developerknowledge` 兩組工具；
+> `firestore_*` 要等 MCP 偵測到**一個含 `firebase.json` 的專案目錄**才會註冊。
+>
+> 如果你發現只有 `firebase_list_projects` 之類的工具、沒有任何 `firestore_*`，
+> 用 `firebase_get_environment` 檢查，若顯示 `<NO CONFIG PRESENT>`，就指定專案目錄：
+>
+> ```
+> firebase_update_environment(project_dir="含 firebase.json 的資料夾路徑")
+> ```
+>
+> 設定後 Firestore 工具會立刻出現，**不需要重啟 Claude Code**。
+> 這也是為什麼階段一「建立專案 + 寫 firebase.json」不能跳過——
+> 就算你的 Google 帳號底下已經有 Firebase 專案，沒有本機專案目錄一樣用不到 Firestore 工具。
+
 ---
 
 ## 先備條件

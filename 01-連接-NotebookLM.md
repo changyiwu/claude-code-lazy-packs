@@ -306,6 +306,7 @@ Documents/
 | `nlm: command not found` | 重開終端機，或確認 uv/pip 安裝路徑已加入 PATH |
 | `uv: command not found` | Windows 需重開 PowerShell；macOS/Linux 需執行 `source ~/.bashrc` 或 `source ~/.zshrc` |
 | 登入後 `nlm doctor` 顯示未認證 | 重新執行 `nlm login`，確認瀏覽器登入成功 |
+| `nlm doctor` 說 cookies 正常，但 MCP 工具回 `Authentication expired` | cookies 會過期而 `doctor` 不一定看得出來。執行 `nlm login` 重新認證（若 Chrome 已存 Google 登入會自動完成，不需手動點），再呼叫 `refresh_auth` 讓 MCP 重載憑證，不必重啟 Claude Code |
 | 瀏覽器沒有自動開啟 | 手動開啟瀏覽器登入 Google，或嘗試 `nlm login --manual` |
 | Claude Code 看不到 NotebookLM 工具 | 確認設定寫在 `~/.claude.json` 而非 `settings.json`，並完全關閉再重啟 Claude Code |
 | `nlm setup add claude-code` 說找不到 `claude` 指令 | 桌面版沒有 CLI，屬正常。改為手動寫入 `~/.claude.json`（見步驟三），**不要**照它建議寫進 `settings.json` |
