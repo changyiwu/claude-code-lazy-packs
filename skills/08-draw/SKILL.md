@@ -27,11 +27,13 @@ echo "OPENAI_API_KEY=sk-proj-你的key" > ~/.openai.env
 ```bash
 npx skills add changyiwu/claude-code-lazy-packs --skill 08-draw -g -y
 ```
-確認 `~/.claude/skills/draw/draw.py` 或 `~/.claude/skills/08-draw/draw.py` 存在；不要從 OpenCode 的 `~/.config/opencode/skills/` 混用。
+安裝後的全域資料夾應為 `~/.claude/skills/claude-draw/`（與 frontmatter `name` 同名）。
+確認 `~/.claude/skills/claude-draw/draw.py` 存在；若安裝工具留下的是 `08-draw/`，請改名為 `claude-draw/`。
+不要從 OpenCode 的 `~/.config/opencode/skills/` 混用。
 
 ### 4. 測試
 ```bash
-python ~/.claude/skills/draw/draw.py "一隻橘貓坐在窗邊，水彩風格" --name test --quality low
+python ~/.claude/skills/claude-draw/draw.py "一隻橘貓坐在窗邊，水彩風格" --name test --quality low
 ```
 
 ## 品質與費用

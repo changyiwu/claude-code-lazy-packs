@@ -100,8 +100,8 @@ macOS/Linux：`~/.openai.env`
 
 建立資料夾：
 
-- Windows：`C:/Users/<使用者>/.claude/skills/draw/`
-- macOS/Linux：`~/.claude/skills/draw/`
+- Windows：`C:/Users/<使用者>/.claude/skills/claude-draw/`
+- macOS/Linux：`~/.claude/skills/claude-draw/`
 
 在這個資料夾裡寫入兩個檔案。
 
@@ -109,7 +109,7 @@ macOS/Linux：`~/.openai.env`
 
 ```markdown
 ---
-name: draw
+name: claude-draw
 description: OpenAI gpt-image-2 生圖技能（全域可用）。當使用者要求「畫一張」、「生一張圖」、「做一張圖」、「產生圖片」、「畫個封面」、「畫插圖」、「畫示意圖」、「畫分鏡」等任何需要 AI 生成圖像的情境時，請一定要使用此技能。此技能會呼叫本地腳本以 gpt-image-2 模型生圖，自動判斷 quality 等級（預設 low），存檔至當前專案的 slides/generated/ 目錄（若無則建於當下工作目錄）。
 ---
 
@@ -123,8 +123,8 @@ description: OpenAI gpt-image-2 生圖技能（全域可用）。當使用者要
 - 「改這張圖」「修改圖片」「把背景換成 XX」（→ 改圖模式，需提供圖片路徑）
 
 ## 腳本位置
-- Windows：`C:/Users/<使用者>/.claude/skills/draw/draw.py`
-- macOS/Linux：`~/.claude/skills/draw/draw.py`
+- Windows：`C:/Users/<使用者>/.claude/skills/claude-draw/draw.py`
+- macOS/Linux：`~/.claude/skills/claude-draw/draw.py`
 
 ## 使用方式
 ```bash

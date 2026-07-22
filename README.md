@@ -54,7 +54,7 @@ AI 會自動讀取 `SKILL.md`（安裝入口），列出所有技能，讓你選
 | 05 | [連接 Firebase 資料庫](05-連接-Firebase-資料庫.md) | v0.8 | 對老師更友善的資料庫選擇（不會閒置暫停、千人研習撐得住、Firestore MCP 完整 CRUD） |
 | 06 | [安裝本地 AI Ollama](06-安裝本地AI-Ollama.md) | v0.2 | 安裝本地 AI，免費、隱私、離線可用 |
 | 07 | [設定 Gemini 免費 API](07-設定Gemini免費API.md) | v0.2 | 設定 Gemini 免費 API，不用信用卡 |
-| 08 | [把 ChatGPT Image 2.0 裝進 Claude Code](08-安裝gpt-image-2生圖.md) | v0.1 | 全域 `draw` Skill 安裝：OpenAI API Key + Individual 驗證 + `~/.claude/skills/draw/` + 第一張圖驗證。之後在任何專案對 Claude 說「畫一張 XX」就生圖 |
+| 08 | [把 ChatGPT Image 2.0 裝進 Claude Code](08-安裝gpt-image-2生圖.md) | v0.1 | 全域 `draw` Skill 安裝：OpenAI API Key + Individual 驗證 + `~/.claude/skills/claude-draw/` + 第一張圖驗證。之後在任何專案對 Claude 說「畫一張 XX」就生圖 |
 
 > 懶人包會在不斷實作的過程中持續更新。
 
