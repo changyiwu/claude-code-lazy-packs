@@ -1,5 +1,5 @@
 ---
-title: 'Claude Code 懶人包 #07：安裝本地 AI（Ollama）'
+title: 'Claude Code 懶人包 #06：安裝本地 AI（Ollama）'
 date: '2026-04-04'
 type: 懶人包
 version: v0.2
@@ -11,7 +11,7 @@ tags:
   - Gemma4
   - 本地AI
 ---
-# Claude Code 懶人包 #07：安裝本地 AI（Ollama）
+# Claude Code 懶人包 #06：安裝本地 AI（Ollama）
 
 > 版本：v0.2
 > 更新日期：2026-04-04
@@ -66,7 +66,7 @@ tags:
 
 | 記憶體 | 建議模型 | 預估下載大小 |
 |--------|---------|------------|
-| 8GB 以下 | ⚠️ 告知使用者建議改用 Gemini 免費 API（懶人包 #08） | — |
+| 8GB 以下 | ⚠️ 告知使用者建議改用 Gemini 免費 API（懶人包 #07） | — |
 | 8-16GB | `gemma4:e2b` | 約 5GB |
 | 16GB 以上 | `gemma4:e4b` | 約 10GB |
 
@@ -205,5 +205,5 @@ ollama rm [模型名稱]
 
 - [Ollama 官網](https://ollama.com)
 - [Gemma 4 官方發布](https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/)
-- [[08-設定Gemini免費API|懶人包 #08：設定 Gemini 免費 API]]
+- [[07-設定Gemini免費API|懶人包 #07：設定 Gemini 免費 API]]
 - [[README|Claude Code 懶人包索引]]

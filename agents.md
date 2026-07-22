@@ -16,8 +16,9 @@
 - [x] 階段一：移除班級工具懶人包、全倉重新編號為連續 00–09
 - [x] 階段二：修正過時的 MCP 設定說明（`settings.json` → `~/.claude.json`／`.mcp.json`）
 - [x] 階段三：技能命名統一 `claude-` 前綴，與其他 agent 區隔
-- [ ] 階段四：實測剩餘懶人包 #05 Supabase、#07 Ollama、#08 Gemini（很可能也有過時的 MCP 指引）
+- [ ] 階段四：實測剩餘懶人包 #04 Supabase、#06 Ollama、#07 Gemini（很可能也有過時的 MCP 指引）
 - [ ] 階段五：決定 `TEMPLATE.md` 的版本編號規則要沿用原作者還是改成自己的規範
+- [x] 階段六：移除「第二大腦設定指南」懶人包，原 05–09 依序遞補為 04–08
 
 ## 資料夾結構
 
@@ -27,16 +28,15 @@ claude-code-lazy-packs/
 ├── 01-連接-NotebookLM.md
 ├── 02-連接-GitHub.md
 ├── 03-建立第二大腦-Obsidian.md
-├── 04-第二大腦設定指南.md
-├── 05-連接-Supabase-資料庫.md
-├── 06-連接-Firebase-資料庫.md
-├── 07-安裝本地AI-Ollama.md
-├── 08-設定Gemini免費API.md
-├── 09-安裝gpt-image-2生圖.md
+├── 04-連接-Supabase-資料庫.md
+├── 05-連接-Firebase-資料庫.md
+├── 06-安裝本地AI-Ollama.md
+├── 07-設定Gemini免費API.md
+├── 08-安裝gpt-image-2生圖.md
 ├── skills/              ← 對應的可安裝技能（npx skills add）
 │   ├── 00-env-setup/ 01-notebooklm/ 02-github/ 03-obsidian/
-│   ├── 04-second-brain/ 05-supabase/ 06-firebase/ 07-ollama/
-│   ├── 08-gemini/ 09-draw/
+│   ├── 04-supabase/ 05-firebase/ 06-ollama/ 07-gemini/
+│   ├── 08-draw/
 │   └── install-all/     ← 一次安裝全部，不佔編號
 ├── README.md            ← 使用者入口與懶人包清單
 ├── SKILL.md             ← AI agent 自動安裝入口
@@ -67,7 +67,7 @@ claude-code-lazy-packs/
 - **編號一一對應**：懶人包 `NN-主題.md` ↔ `skills/NN-主題/`，編號連續、不重號、不用小數；新增時接續最大編號，不插號
 - **技能命名**：repo 資料夾帶編號，但 frontmatter `name` 與安裝後的全域資料夾一律 `claude-<主題>`（例：`skills/02-github/` → `name: claude-github` → `~/.claude/skills/claude-github/`）
 - **改懶人包必同步四處**：`README.md` 清單表、`SKILL.md` 對照表、`skills/install-all/SKILL.md` 的順序與總項數、其他懶人包的交叉引用
-- **LICENSE 不可動**：MIT 要求保留原作者著作權聲明；`09-安裝gpt-image-2生圖.md` 結尾的作者與頻道資訊同理
+- **LICENSE 不可動**：MIT 要求保留原作者著作權聲明；`08-安裝gpt-image-2生圖.md` 結尾的作者與頻道資訊同理
 
 ## 最近進度
 

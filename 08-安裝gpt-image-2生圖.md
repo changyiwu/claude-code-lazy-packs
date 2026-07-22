@@ -1,4 +1,4 @@
-# 懶人包 09：把 ChatGPT Image 2.0 裝進 Claude Code
+# 懶人包 08：把 ChatGPT Image 2.0 裝進 Claude Code
 
 > 目標：五分鐘內完成安裝，讓 Claude Code 能夠用一句話生圖
 > 費用：第一次需要儲值 OpenAI 最少 US$5；每張圖約 **NT$0.3**（low 品質）

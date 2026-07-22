@@ -1,5 +1,5 @@
 ---
-title: 'Claude Code 懶人包 #05：連接 Supabase 資料庫'
+title: 'Claude Code 懶人包 #04：連接 Supabase 資料庫'
 date: '2026-04-04'
 type: 懶人包
 version: v0.2
@@ -11,7 +11,7 @@ tags:
   - 資料庫
   - MCP
 ---
-# Claude Code 懶人包 #05：連接 Supabase 資料庫
+# Claude Code 懶人包 #04：連接 Supabase 資料庫
 
 > 版本：v0.2
 > 更新日期：2026-04-04

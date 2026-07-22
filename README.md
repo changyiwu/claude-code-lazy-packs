@@ -50,12 +50,11 @@ AI 會自動讀取 `SKILL.md`（安裝入口），列出所有技能，讓你選
 | 01 | [連接 NotebookLM](01-連接-NotebookLM.md) | v0.5 | 安裝 NotebookLM MCP + 產生簡報與圖表 |
 | 02 | [連接 GitHub](02-連接-GitHub.md) | v0.2 | 連接 GitHub + GitHub Pages 教材上線 |
 | 03 | [建立第二大腦 Obsidian](03-建立第二大腦-Obsidian.md) | v0.6 | 安裝 Obsidian + MCP 連接 + Google Drive 同步 |
-| 04 | [第二大腦設定指南](04-第二大腦設定指南.md) | v1.0 | 三層結構 + CLAUDE.md + 模板 + 每週知識重整排程 |
-| 05 | [連接 Supabase 資料庫](05-連接-Supabase-資料庫.md) | v0.2 | 連接雲端資料庫，讓程式「記得住」 |
-| 06 | [連接 Firebase 資料庫](06-連接-Firebase-資料庫.md) | v0.8 | 對老師更友善的資料庫選擇（不會閒置暫停、千人研習撐得住、Firestore MCP 完整 CRUD） |
-| 07 | [安裝本地 AI Ollama](07-安裝本地AI-Ollama.md) | v0.2 | 安裝本地 AI，免費、隱私、離線可用 |
-| 08 | [設定 Gemini 免費 API](08-設定Gemini免費API.md) | v0.2 | 設定 Gemini 免費 API，不用信用卡 |
-| 09 | [把 ChatGPT Image 2.0 裝進 Claude Code](09-安裝gpt-image-2生圖.md) | v0.1 | 全域 `draw` Skill 安裝：OpenAI API Key + Individual 驗證 + `~/.claude/skills/draw/` + 第一張圖驗證。之後在任何專案對 Claude 說「畫一張 XX」就生圖 |
+| 04 | [連接 Supabase 資料庫](04-連接-Supabase-資料庫.md) | v0.2 | 連接雲端資料庫，讓程式「記得住」 |
+| 05 | [連接 Firebase 資料庫](05-連接-Firebase-資料庫.md) | v0.8 | 對老師更友善的資料庫選擇（不會閒置暫停、千人研習撐得住、Firestore MCP 完整 CRUD） |
+| 06 | [安裝本地 AI Ollama](06-安裝本地AI-Ollama.md) | v0.2 | 安裝本地 AI，免費、隱私、離線可用 |
+| 07 | [設定 Gemini 免費 API](07-設定Gemini免費API.md) | v0.2 | 設定 Gemini 免費 API，不用信用卡 |
+| 08 | [把 ChatGPT Image 2.0 裝進 Claude Code](08-安裝gpt-image-2生圖.md) | v0.1 | 全域 `draw` Skill 安裝：OpenAI API Key + Individual 驗證 + `~/.claude/skills/draw/` + 第一張圖驗證。之後在任何專案對 Claude 說「畫一張 XX」就生圖 |
 
 > 懶人包會在不斷實作的過程中持續更新。
 

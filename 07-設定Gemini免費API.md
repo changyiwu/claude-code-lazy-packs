@@ -1,5 +1,5 @@
 ---
-title: 'Claude Code 懶人包 #08：設定 Gemini 免費 API'
+title: 'Claude Code 懶人包 #07：設定 Gemini 免費 API'
 date: '2026-04-04'
 type: 懶人包
 version: v0.2
@@ -11,7 +11,7 @@ tags:
   - API
   - 免費
 ---
-# Claude Code 懶人包 #08：設定 Gemini 免費 API
+# Claude Code 懶人包 #07：設定 Gemini 免費 API
 
 > 版本：v0.2
 > 更新日期：2026-04-04
@@ -204,5 +204,5 @@ Claude 會自動：
 
 - [Google AI Studio](https://aistudio.google.com)
 - [Gemini API 文件](https://ai.google.dev/docs)
-- [[07-安裝本地AI-Ollama|懶人包 #07：安裝本地 AI（Ollama）]]
+- [[06-安裝本地AI-Ollama|懶人包 #06：安裝本地 AI（Ollama）]]
 - [[README|Claude Code 懶人包索引]]

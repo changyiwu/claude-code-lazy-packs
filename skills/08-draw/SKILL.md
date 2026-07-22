@@ -25,9 +25,9 @@ echo "OPENAI_API_KEY=sk-proj-你的key" > ~/.openai.env
 
 ### 3. 安裝 draw skill
 ```bash
-npx skills add changyiwu/claude-code-lazy-packs --skill 09-draw -g -y
+npx skills add changyiwu/claude-code-lazy-packs --skill 08-draw -g -y
 ```
-確認 `~/.claude/skills/draw/draw.py` 或 `~/.claude/skills/09-draw/draw.py` 存在；不要從 OpenCode 的 `~/.config/opencode/skills/` 混用。
+確認 `~/.claude/skills/draw/draw.py` 或 `~/.claude/skills/08-draw/draw.py` 存在；不要從 OpenCode 的 `~/.config/opencode/skills/` 混用。
 
 ### 4. 測試
 ```bash

@@ -1,4 +1,4 @@
-# Claude Code 懶人包 #06：連接 Firebase 資料庫
+# Claude Code 懶人包 #05：連接 Firebase 資料庫
 
 > 版本：v0.8
 > 更新日期：2026-07-22
@@ -17,11 +17,11 @@
 - **千人研習也撐得住**（免費並發連線 100 萬）
 - **永遠不會閒置暫停**
 
-> 💡 **對老師而言，這是比 Supabase 更友善的預設選擇**。Supabase（懶人包 #05）適合需要重度 SQL 統計分析的場景，但對絕大多數教學工具，Firebase 的限制更少、更省心。
+> 💡 **對老師而言，這是比 Supabase 更友善的預設選擇**。Supabase（懶人包 #04）適合需要重度 SQL 統計分析的場景，但對絕大多數教學工具，Firebase 的限制更少、更省心。
 
 ### Firebase vs Supabase，該選哪個？
 
-| 比較項目 | Supabase（懶人包 #05） | Firebase（本懶人包） |
+| 比較項目 | Supabase（懶人包 #04） | Firebase（本懶人包） |
 |---------|----------------------|---------------------|
 | 資料庫類型 | SQL（像 Excel 表格） | NoSQL（像 JSON 文件） |
 | 免費專案數 | 2 個 | 無限 |
@@ -424,5 +424,5 @@ npx -y firebase-tools@latest login
 - [Firebase 官網](https://firebase.google.com)
 - [Firebase MCP Server 官方文件](https://firebase.google.com/docs/ai-assistance/mcp-server)
 - [Cloud Firestore 文件](https://firebase.google.com/docs/firestore)
-- [懶人包 #05：連接 Supabase 資料庫](05-連接-Supabase-資料庫.md)
+- [懶人包 #04：連接 Supabase 資料庫](04-連接-Supabase-資料庫.md)
 - [懶人包 #02：連接 GitHub](02-連接-GitHub.md)（教材上線用）
