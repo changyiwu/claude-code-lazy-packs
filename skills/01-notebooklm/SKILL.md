@@ -29,7 +29,20 @@ nlm doctor
 ```bash
 nlm setup add claude-code
 ```
-（由 nlm 自動註冊 MCP 設定）
+
+⚠️ **桌面版一定會失敗**：`nlm setup` 是靠呼叫 `claude` CLI 寫設定的，桌面版沒有 CLI，
+會顯示 `Warning: 'claude' command not found in PATH`，並建議手動加到 `~/.claude/settings.json`
+——**那個建議是錯的**，現行 schema 不接受 `mcpServers`。
+
+改為手動寫入 `~/.claude.json` 最上層（保留原有內容，只新增 `mcpServers`）：
+```json
+"notebooklm": {
+  "command": "C:/Users/[使用者]/.local/bin/notebooklm-mcp.exe",
+  "args": ["--transport", "stdio"]
+}
+```
+路徑用 `nlm doctor` 查（會直接印出 `notebooklm-mcp` 實際位置）；macOS/Linux 通常是
+`~/.local/bin/notebooklm-mcp`。`--transport stdio` 是預設值，省略亦可。
 
 ### 4. 驗證
 重啟 Claude Code 後，問：「請列出我所有的 NotebookLM 筆記本。」

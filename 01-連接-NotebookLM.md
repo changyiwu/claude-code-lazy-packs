@@ -2,7 +2,7 @@
 title: 'Claude Code 懶人包 #01：連接 NotebookLM（支援 opencode）'
 date: '2026-06-10'
 type: 懶人包
-version: v0.4
+version: v0.5
 status: 實測修正版
 tags:
   - Claude-Code
@@ -13,7 +13,7 @@ tags:
 ---
 # Claude Code / opencode 懶人包 #01：連接 Google NotebookLM
 
-> 版本：v0.4（對應 nlm 0.8.x、修正 MCP 設定位置）
+> 版本：v0.5（對應 nlm 0.9.0、修正 MCP 設定位置）
 > 更新日期：2026-07-22
 
 > 📌 **本懶人包可獨立執行**：會自動檢查並安裝所需工具，不需要先看過其他懶人包。你只要確認下方「先備條件」即可開始。
@@ -77,7 +77,7 @@ uv tool install notebooklm-mcp-cli
 pip install notebooklm-mcp-cli
 ```
 
-> ✅ 目前本機驗證：v0.6.11 在 Python 3.14 + pip 環境下運作正常。
+> ✅ 目前本機驗證：v0.9.0 以 `uv tool install` 裝在 Python 3.13.14 環境下運作正常。
 > 裝完後用 `nlm --version` 確認可用。
 
 ---
@@ -173,6 +173,11 @@ nlm doctor
 
 `nlm setup add` 從 0.8.x 起已內建支援多種 agent，用 `nlm setup add --help` 可看到完整清單
 （claude-code、gemini、github-copilot、cursor、windsurf、cline、antigravity、opencode、json）。
+0.9.0 實測清單不變。
+
+> ⚠️ 注意 `nlm doctor` 的「AI Tool Configurations」只會列出它**偵測得到**的工具。
+> 桌面版 Claude Code 沒有 `claude` CLI，所以 doctor 不會把 claude-code 列進建議清單，
+> 但 `nlm setup add claude-code` 仍然存在且可執行（只是會如下失敗）。
 
 #### 給 Claude Code 使用者
 
@@ -326,6 +331,7 @@ Documents/
 | 2026-04-04 | v0.2 | 加入環境檢查、復原機制、跨平台支援、常見問題擴充 |
 | 2026-06-10 | v0.3 | 加入 opencode 支援、pip 安裝方式、`.local\bin` 路徑陷阱警告、`nlm setup list` 編碼問題說明、版本更新至 v0.6.11 |
 | 2026-07-22 | v0.4 | 實測 nlm 0.8.8：opencode 已原生支援（`nlm setup add opencode`）、`.local\bin` 路徑陷阱已修復、`nlm setup add claude-code` 在桌面版會失敗且其建議的 `settings.json` 寫法無效，改為手動寫入 `~/.claude.json` |
+| 2026-07-22 | v0.5 | 實測 nlm 0.9.0（uv + Python 3.13.14）：v0.4 對桌面版的判斷全部複驗成立；更新本機驗證版本、補上 `nlm doctor` 不列出 claude-code 的說明；MCP server 版本 3.4.4，`--transport stdio` 為預設值 |
 
 ---
 

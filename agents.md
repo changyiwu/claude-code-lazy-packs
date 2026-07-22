@@ -68,3 +68,7 @@ claude-code-lazy-packs/
 - **技能命名**：repo 資料夾帶編號，但 frontmatter `name` 與安裝後的全域資料夾一律 `claude-<主題>`（例：`skills/02-github/` → `name: claude-github` → `~/.claude/skills/claude-github/`）
 - **改懶人包必同步四處**：`README.md` 清單表、`SKILL.md` 對照表、`skills/install-all/SKILL.md` 的順序與總項數、其他懶人包的交叉引用
 - **LICENSE 不可動**：MIT 要求保留原作者著作權聲明；`09-安裝gpt-image-2生圖.md` 結尾的作者與頻道資訊同理
+
+## 最近進度
+
+- 2026-07-22：完成 NotebookLM 懶人包 v0.5 的 nlm 0.9.0 實測資訊、桌面版 Claude Code 限制與 MCP 說明同步。
