@@ -72,3 +72,4 @@ claude-code-lazy-packs/
 ## 最近進度
 
 - 2026-07-22：完成 NotebookLM 懶人包 v0.5 的 nlm 0.9.0 實測資訊、桌面版 Claude Code 限制與 MCP 說明同步。
+- 2026-07-22：移除 #04 第二大腦設定指南，原 05–09 遞補為 04–08；生圖技能全域路徑統一為 `claude-draw`。
