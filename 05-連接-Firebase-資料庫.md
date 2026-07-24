@@ -1,7 +1,7 @@
 # Claude Code 懶人包 #05：連接 Firebase 資料庫
 
-> 版本：v0.8
-> 更新日期：2026-07-22
+> 版本：v0.9
+> 更新日期：2026-07-24
 
 > 📌 **本懶人包可獨立執行**：會自動檢查並安裝所需工具，不需要先看過其他懶人包。你只要確認下方「先備條件」即可開始。
 
@@ -149,51 +149,28 @@
 > 💡 **為什麼選正式版模式？**
 > - 測試模式預設「任何人可讀寫」，但 30 天後規則自動失效，網頁會壞掉
 > - 正式版模式預設「全部禁止」，比較安全
-> - 我們會在下一步馬上設定正確的規則
+> - **規則請你自行在 Console 設定**——本懶人包不會自動建立或部署任何 Firestore 規則，
+>   絕不覆蓋你專案現有的線上規則（見步驟二之二）
 
 等使用者確認 Firestore 已啟用後，繼續下一步。
 
 ---
 
-### 步驟二之二：設定 Firestore 安全規則（自動化方式）
+### 步驟二之二：建立本機專案設定（讓 MCP 工具生效，**不動線上規則**）
 
-> 💡 **這一步完全自動化**：規則檔放在專案資料夾，請 Claude Code 用 CLI 一鍵部署，不用手動到 Console 貼。
+> 🛡️ **本懶人包不會建立、修改或部署任何 Firestore 安全規則。**
+> 你專案現有的線上規則完全不會被動到。這一步只是在本機放一個「專案指標」，
+> 讓 Firebase MCP 偵測得到專案、把 `firestore_*` 工具開出來（見本檔開頭的說明）。
 
-請 Claude Code 在使用者的專案資料夾建立以下三個檔案：
+請 Claude Code 在使用者的專案資料夾建立以下**兩個**檔案（沒有 `firestore.rules`，因為我們不碰規則）：
 
-**1. `firestore.rules`**（規則內容，白名單做法）
-
-```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-
-    // 你的第一個集合：任何人可讀寫
-    // 之後新增工具時在這裡加更多 match 區塊
-    match /wordcloud_words/{document} {
-      // 測試用公開白名單：只適合課堂 demo，不可直接用在正式學生資料或長期公開服務。
-      allow read, write: if true;
-    }
-
-    // 其他集合預設禁止存取
-    match /{document=**} {
-      allow read, write: if false;
-    }
-  }
-}
-```
-
-**2. `firebase.json`**（告訴 Firebase CLI 規則檔在哪）
+**1. `firebase.json`**（空設定即可，只為了讓 MCP 偵測到這是 Firebase 專案目錄）
 
 ```json
-{
-  "firestore": {
-    "rules": "firestore.rules"
-  }
-}
+{}
 ```
 
-**3. `.firebaserc`**（指定預設專案，請替換成使用者的專案 ID）
+**2. `.firebaserc`**（指定預設專案，請替換成使用者的專案 ID）
 
 ```json
 {
@@ -203,22 +180,26 @@ service cloud.firestore {
 }
 ```
 
-建好後執行部署：
+建好後，讓 MCP 指向這個資料夾（不需重啟）：
 
-```bash
-npx -y firebase-tools@latest deploy --only firestore:rules
+```
+firebase_update_environment(project_dir="含上面兩個檔案的資料夾路徑")
 ```
 
-成功會看到 `Deploy complete!`，告知使用者規則已生效。
+之後 `firestore_list_collections`、`firestore_add_document` 等工具就會出現，可以直接讀寫資料。
 
-> 💡 **以後要新增工具怎麼辦？**（這就是自動化的價值）
+> 🔒 **規則要自己在 Console 設**：Firestore 的安全規則請到
+> [Firebase Console → Firestore → 規則](https://console.firebase.google.com) 自行設定。
+> 例如某個集合要開放課堂 demo 讀寫，就在 Console 幫該集合加上 `allow read, write: if true`
+> （demo 用，正式服務要改成登入或班級碼限制）。
 >
-> 例如未來做投票工具：
-> 1. 編輯 `firestore.rules`，先在測試集合加上 `match /votes/{document} { allow read, write: if true; }`。這只適合 demo，正式服務要改成登入或班級碼限制。
-> 2. 跟 Claude 說「部署 Firestore 規則」
-> 3. Claude 自動執行 `npx firebase-tools deploy --only firestore:rules`
+> ⚠️ **為什麼不自動部署？** 自動部署會用範本規則**整份覆蓋**你專案現有的規則，
+> 很可能弄壞你既有的 app。所以本懶人包一律不碰規則。
 >
-> 全程不用打開 Firebase Console。規則檔在 Git 裡有完整版本控制。
+> 💡 如果你之後真的想讓 Claude 幫忙改規則，請**明確要求**，而且 Claude 會：
+> 1. 先用 `firebase_get_security_rules` 讀出你目前的線上規則給你看
+> 2. 跟你確認要改成什麼、影響哪些集合
+> 3. 得到你同意後才動作——**絕不自動覆蓋**
 
 ---
 
@@ -314,9 +295,9 @@ npx -y firebase-tools@latest projects:list
 | 你說的話 | Claude + Firebase 會做的事 |
 |----------|-----------------------------|
 | 「幫我做一個即時文字雲網頁，連接 Firebase」 | 產生前端 + 連接 Firestore + 即時更新 |
-| 「幫我做一個課堂投票工具」 | 產生網頁 + 修改 firestore.rules + 自動部署 |
+| 「幫我做一個課堂投票工具」 | 產生網頁 + 前端連 Firestore（規則由你在 Console 開放該集合，懶人包不代改） |
 | 「幫我把這個工具推到 GitHub Pages」 | 上線（搭配 #02 GitHub 懶人包） |
-| 「部署 Firestore 規則」 | 自動執行 `firebase deploy --only firestore:rules` |
+| 「看一下我 Firestore 現在的規則」 | 呼叫 `firebase_get_security_rules` 讀出目前規則（唯讀，不修改） |
 | 「查一下 wordcloud_words 有幾筆、列出最熱門的 5 個關鍵字」 | 直接呼叫 `firestore_query_collection` 撈資料統計 |
 | 「刪掉所有測試資料」 | 呼叫 `firestore_delete_document` |
 | 「幫我加一筆示範資料」 | 呼叫 `firestore_add_document` |
@@ -364,8 +345,8 @@ npx -y firebase-tools@latest login
 | `npx: command not found` | 確認 Node.js 已安裝，重啟 Claude Code |
 | 連接後查詢失敗 | 確認已執行 `firebase login` 並成功登入 |
 | 看不到 Firestore 資料 | 確認已在 Firebase Console 啟用 Cloud Firestore |
-| 安全性規則過期 | 表示用了「測試模式」。重新設定為「白名單規則」即可（見步驟二之二） |
-| 寫入失敗：Permission denied | Firestore 規則沒允許這個集合。測試時可先加 `allow read, write: if true`，正式服務要改成登入或班級碼限制 |
+| 安全性規則過期 | 表示用了「測試模式」。到 Firebase Console → Firestore → 規則，改成白名單或登入限制（本懶人包不自動改規則） |
+| 寫入失敗：Permission denied | Firestore 規則沒允許這個集合。到 Console 幫該集合加上規則（demo 可先 `allow read, write: if true`，正式服務要改成登入或班級碼限制） |
 | `Collection id is invalid because it contains /` | `firestore_query_collection` 的 `collection_path` 不能含尾巴 `/`，寫成 `wordcloud_words` 不要 `wordcloud_words/` |
 | GitHub Pages 無法啟用 | 免費方案不支援私有 repo 的 Pages，需要將 repo 改成公開 |
 | `firebase login` 在 Claude Code 對話中卡住 | 請使用者打開 cmd / PowerShell 手動跑一次 `npx firebase-tools login` |
@@ -416,6 +397,7 @@ npx -y firebase-tools@latest login
 | 2026-04-14 | v0.5 | 加入並發連線比較（Supabase 200 vs Firebase 100 萬）與場景對照表，明確建議千人研習用 Firebase |
 | 2026-04-14 | v0.6 | 確認 MCP 可讓 Claude 用自然語言查 Firestore 資料；重新定位為「對老師更友善的預設選擇」 |
 | 2026-04-14 | v0.7 | **發現 Firebase MCP 其實有完整 Firestore CRUD 工具**（list/query/add/update/delete），全面修正之前錯誤陳述 |
+| 2026-07-24 | v0.9 | **改為完全不碰線上規則**：步驟二之二不再建立/部署 `firestore.rules`，只建 `firebase.json` + `.firebaserc` 讓 MCP 的 `firestore_*` 工具生效；規則改由使用者自行在 Console 設定，若要 Claude 協助改規則會先讀現況並確認、絕不自動覆蓋 |
 
 ---
 

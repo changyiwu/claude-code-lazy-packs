@@ -1,50 +1,52 @@
 ---
 name: claude-draw
-description: Claude Code 安裝 gpt-image-2 生圖 skill。說「安裝生圖」「畫圖」「生圖」時載入。
+description: OpenAI gpt-image-2 生圖技能（全域可用）。當使用者要求「畫一張」、「生一張圖」、「做一張圖」、「產生圖片」、「畫個封面」、「畫插圖」、「畫示意圖」、「畫分鏡」等任何需要 AI 生成圖像的情境時，請一定要使用此技能。此技能會呼叫本地腳本以 gpt-image-2 模型生圖，自動判斷 quality 等級（預設 low），存檔至當前專案的 slides/generated/ 目錄（若無則建於當下工作目錄）。
 ---
 
-# 生圖技能安裝（Claude Code 版）
+# 生圖技能（gpt-image-2）
 
-## 前置需求
-1. OpenAI API Key：https://platform.openai.com/api-keys
-2. Organization Individual 驗證：platform.openai.com/settings/organization/general
-3. Billing 儲值（最低 US$5）：platform.openai.com → Billing
+> 前置安裝（API Key／儲值／Individual 驗證／裝 openai 套件）請看懶人包 `08-安裝gpt-image-2生圖.md`。
+> 本 skill 是安裝完成後「拿來就能用」的操作版。
 
-## 安裝
+## 觸發情境
+使用者說出：
+- 「畫一張 XX」「生一張圖」「做一張圖」
+- 「畫個封面／插圖／示意圖／分鏡」
+- 「產生圖片」「幫我生圖」
+- 「改這張圖」「修改圖片」「把背景換成 XX」（→ 改圖模式，需提供圖片路徑）
 
-### 1. 安裝 Python openai 套件
+## 腳本位置
+- Windows：`C:/Users/<使用者>/.claude/skills/claude-draw/draw.py`
+- macOS/Linux：`~/.claude/skills/claude-draw/draw.py`
+
+## 使用方式
 ```bash
-pip install openai
+python <SKILL路徑>/draw.py "要畫的內容" --name 檔名前綴
 ```
 
-### 2. 儲存 API Key
-```bash
-# 建立 ~/.openai.env
-echo "OPENAI_API_KEY=sk-proj-你的key" > ~/.openai.env
-```
+### 參數
+- `prompt`（必填）：要畫什麼
+- `--size`：`1024x1024`（方，預設）/ `1536x1024`（橫）/ `1024x1536`（直）
+- `--quality`：`low`（預設，NT$0.3）/ `medium`（NT$1.3）/ `high`（NT$5.5）
+- `--n`：生成張數 1–8
+- `--name`：檔名前綴
+- `--outdir`：輸出目錄
+- `--edit IMAGE_PATH`：改圖模式（指定來源圖）
+- `--mask MASK_PATH`：遮罩圖片（搭配 --edit 使用）
 
-### 3. 安裝 draw skill
-```bash
-npx skills add changyiwu/claude-code-lazy-packs --skill 08-draw -g -y
-```
-安裝後的全域資料夾應為 `~/.claude/skills/claude-draw/`（與 frontmatter `name` 同名）。
-確認 `~/.claude/skills/claude-draw/draw.py` 存在；若安裝工具留下的是 `08-draw/`，請改名為 `claude-draw/`。
-不要從 OpenCode 的 `~/.config/opencode/skills/` 混用。
+## 判斷 quality 等級的原則
+**預設永遠用 `low`**（省錢 + 速度優先）
 
-### 4. 測試
-```bash
-python ~/.claude/skills/claude-draw/draw.py "一隻橘貓坐在窗邊，水彩風格" --name test --quality low
-```
+- **low**（NT$0.3）：**99% 情境**。演講簡報、教學插圖、封面、demo 都夠。
+- **medium**（NT$1.3）：通常不用。
+- **high**（NT$5.5）：實體印刷、跨語言文字零錯才用。
 
-## 品質與費用
-| 等級 | 適用 |
-|------|------|
-| low | 99% 情境（預設）|
-| medium | low 明顯不夠時 |
-| high | 印刷品 |
+不確定就 **low**，不要自作主張升級。
 
-實際費用以 OpenAI 官方 pricing 為準，不在 skill 裡寫死金額。
+## 錯誤處理
+- `403 Organization must be verified` → 到 platform.openai.com/settings/organization/general 做 Individual 驗證
+- `401 Invalid API key` → 檢查 `~/.openai.env`
+- `429 Rate limit` → 額度用完，到 Billing 儲值
 
-安裝後在任何專案對 Claude 說「畫一張 XX」就會自動生圖。
-
-回報：API key 狀態、draw skill 已安裝、測試生圖結果。
+## 輸出
+PNG 檔，格式：`<name>_<YYYYMMDD_HHMMSS>.png`
