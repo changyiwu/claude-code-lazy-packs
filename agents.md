@@ -1,7 +1,7 @@
 # claude-code-lazy-packs（專案藍圖）
 
 > 本檔為跨 Agent 通用的專案藍圖（AGENTS.md 開放標準）。任何 Agent 的每個 session 都應先讀本檔＋`handoff.md`。
-> Claude Code 專屬的操作規範另見 `CLAUDE.md`。
+> Claude Code 不讀 `agents.md`，改由 `CLAUDE.md` 的 `@agents.md` import 本檔；Claude 專屬的補充寫在 `CLAUDE.md`。
 
 ## 專案簡介
 
@@ -43,7 +43,7 @@ claude-code-lazy-packs/
 ├── TEMPLATE.md          ← 懶人包製作規範
 ├── agents.md            ← 本檔（跨 Agent 專案藍圖）
 ├── handoff.md           ← 交接檔
-├── CLAUDE.md            ← Claude Code 專屬規範
+├── CLAUDE.md            ← 橋接檔（@agents.md）＋ Claude Code 專屬補充
 └── LICENSE              ← MIT，著作權屬原作者，不可移除
 ```
 
@@ -51,7 +51,7 @@ claude-code-lazy-packs/
 
 | 層級 | 平台 | 位置 | 讀取時機 |
 |------|------|------|---------|
-| L1 | 本地（GDrive） | `agents.md`＋`handoff.md` | 每個 session |
+| L1 | 本地（GDrive） | `agents.md`＋`handoff.md`＋`CLAUDE.md`（橋接） | 每個 session |
 | L2 | GitHub | [changyiwu/claude-code-lazy-packs](https://github.com/changyiwu/claude-code-lazy-packs)（**public**，刻意公開） | 指定時 |
 | L3 | Obsidian | `claude-code-lazy-packs/專案工作流程.md` | 有需要時 |
 
