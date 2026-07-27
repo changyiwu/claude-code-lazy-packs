@@ -113,7 +113,10 @@ name: claude-draw
 description: OpenAI gpt-image-2 生圖技能（全域可用）。當使用者要求「畫一張」、「生一張圖」、「做一張圖」、「產生圖片」、「畫個封面」、「畫插圖」、「畫示意圖」、「畫分鏡」等任何需要 AI 生成圖像的情境時，請一定要使用此技能。此技能會呼叫本地腳本以 gpt-image-2 模型生圖，自動判斷 quality 等級（預設 low），存檔至當前專案的 slides/generated/ 目錄（若無則建於當下工作目錄）。
 ---
 
-# 小克生圖技能（gpt-image-2）
+# 生圖技能（gpt-image-2）
+
+> 前置安裝（API Key／儲值／Individual 驗證／裝 openai 套件）請看懶人包 `08-安裝gpt-image-2生圖.md`。
+> 本 skill 是安裝完成後「拿來就能用」的操作版。
 
 ## 觸發情境
 使用者說出：
@@ -163,7 +166,7 @@ PNG 檔，格式：`<name>_<YYYYMMDD_HHMMSS>.png`
 
 ```python
 """
-小克全域生圖腳本（OpenAI gpt-image-2 版）
+全域生圖腳本（OpenAI gpt-image-2 版）
 
 用法：
   python draw.py "一隻穿西裝的龍蝦，寫實風格"
