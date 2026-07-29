@@ -100,8 +100,7 @@ macOS/Linux：`~/.openai.env`
 
 建立資料夾：
 
-- Windows：`C:/Users/<使用者>/.claude/skills/claude-draw/`
-- macOS/Linux：`~/.claude/skills/claude-draw/`
+`$HOME/.claude/skills/claude-draw/`（Windows PowerShell 與 macOS/Linux 通用）
 
 在這個資料夾裡寫入兩個檔案。
 
@@ -126,12 +125,11 @@ description: OpenAI gpt-image-2 生圖技能（全域可用）。當使用者要
 - 「改這張圖」「修改圖片」「把背景換成 XX」（→ 改圖模式，需提供圖片路徑）
 
 ## 腳本位置
-- Windows：`C:/Users/<使用者>/.claude/skills/claude-draw/draw.py`
-- macOS/Linux：`~/.claude/skills/claude-draw/draw.py`
+`$HOME/.claude/skills/claude-draw/draw.py`（Windows PowerShell 與 macOS/Linux 通用，不要寫死使用者名稱）
 
 ## 使用方式
 ```bash
-python <SKILL路徑>/draw.py "要畫的內容" --name 檔名前綴
+python "$HOME/.claude/skills/claude-draw/draw.py" "要畫的內容" --name 檔名前綴
 ```
 
 ### 參數
@@ -303,7 +301,7 @@ if __name__ == "__main__":
 測試生成一張圖：
 
 ```bash
-python <SKILL路徑>/draw.py "一隻可愛的黑貓，扁平插畫風格" --name test
+python "$HOME/.claude/skills/claude-draw/draw.py" "一隻可愛的黑貓，扁平插畫風格" --name test
 ```
 
 預期結果：

@@ -16,12 +16,11 @@ description: OpenAI gpt-image-2 生圖技能（全域可用）。當使用者要
 - 「改這張圖」「修改圖片」「把背景換成 XX」（→ 改圖模式，需提供圖片路徑）
 
 ## 腳本位置
-- Windows：`C:/Users/<使用者>/.claude/skills/claude-draw/draw.py`
-- macOS/Linux：`~/.claude/skills/claude-draw/draw.py`
+`$HOME/.claude/skills/claude-draw/draw.py`（Windows PowerShell 與 macOS/Linux 通用，不要寫死使用者名稱）
 
 ## 使用方式
 ```bash
-python <SKILL路徑>/draw.py "要畫的內容" --name 檔名前綴
+python "$HOME/.claude/skills/claude-draw/draw.py" "要畫的內容" --name 檔名前綴
 ```
 
 ### 參數
