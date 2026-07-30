@@ -26,7 +26,7 @@ python "$HOME/.claude/skills/claude-draw/draw.py" "要畫的內容" --name 檔�
 ### 參數
 - `prompt`（必填）：要畫什麼
 - `--size`：`1024x1024`（方，預設）/ `1536x1024`（橫）/ `1024x1536`（直）
-- `--quality`：`low`（預設，NT$0.3）/ `medium`（NT$1.3）/ `high`（NT$5.5）
+- `--quality`：`low`（預設，NT$0.3）/ `medium`（NT$1.3）/ `high`（NT$5.5）/ `auto`（交給模型決定，費用不可預測）
 - `--n`：生成張數 1–8
 - `--name`：檔名前綴
 - `--outdir`：輸出目錄
@@ -39,6 +39,7 @@ python "$HOME/.claude/skills/claude-draw/draw.py" "要畫的內容" --name 檔�
 - **low**（NT$0.3）：**99% 情境**。演講簡報、教學插圖、封面、demo 都夠。
 - **medium**（NT$1.3）：通常不用。
 - **high**（NT$5.5）：實體印刷、跨語言文字零錯才用。
+- **auto**：不要用。等級由模型決定，費用不可預測。
 
 不確定就 **low**，不要自作主張升級。
 
