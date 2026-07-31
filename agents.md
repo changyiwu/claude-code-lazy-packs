@@ -19,6 +19,8 @@
 - [ ] 階段四：實測剩餘懶人包 #04 Supabase、#06 Ollama、#07 Gemini（很可能也有過時的 MCP 指引）
 - [ ] 階段五：決定 `TEMPLATE.md` 的版本編號規則要沿用原作者還是改成自己的規範
 - [x] 階段六：移除「第二大腦設定指南」懶人包，原 05–09 依序遞補為 04–08
+- [x] 階段七：跟進 NotebookLM → Gemini Notebook 更名（#01 檔名、技能名、全域副本）
+- [ ] 階段八：定期巡檢各懶人包引用的外部產品／套件是否改名或搬家（本次更名是被動發現的）
 
 ## 資料夾結構
 
@@ -71,5 +73,6 @@ claude-code-lazy-packs/
 
 ## 最近進度
 
+- 2026-08-01：NotebookLM 更名 Gemini Notebook，#01 懶人包升 v0.6、技能改名 `claude-gemini-notebook`，四個 agent 全域副本對齊。
 - 2026-07-22：完成 NotebookLM 懶人包 v0.5 的 nlm 0.9.0 實測資訊、桌面版 Claude Code 限制與 MCP 說明同步。
 - 2026-07-22：移除 #04 第二大腦設定指南，原 05–09 遞補為 04–08；生圖技能全域路徑統一為 `claude-draw`。
