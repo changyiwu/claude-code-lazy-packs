@@ -1,28 +1,51 @@
 ---
-title: 'Claude Code 懶人包 #01：連接 NotebookLM（支援 opencode）'
+title: 'Claude Code 懶人包 #01：連接 Gemini Notebook（原 NotebookLM，支援 opencode）'
 date: '2026-06-10'
 type: 懶人包
-version: v0.5
+version: v0.6
 status: 實測修正版
 tags:
   - Claude-Code
   - opencode
   - 懶人包
+  - Gemini-Notebook
   - NotebookLM
   - MCP
 ---
-# Claude Code / opencode 懶人包 #01：連接 Google NotebookLM
+# Claude Code / opencode 懶人包 #01：連接 Google Gemini Notebook（原 NotebookLM）
 
-> 版本：v0.5（對應 nlm 0.9.0、修正 MCP 設定位置）
-> 更新日期：2026-07-22
+> 版本：v0.6（產品更名 Gemini Notebook、對應 nlm 0.9.4）
+> 更新日期：2026-08-01
 
 > 📌 **本懶人包可獨立執行**：會自動檢查並安裝所需工具，不需要先看過其他懶人包。你只要確認下方「先備條件」即可開始。
 
 ---
 
+## ⚠️ 先講更名這件事
+
+Google 在 **2026-07-16** 把 **NotebookLM 更名為 Gemini Notebook**。這是純換名字：
+`notebooklm.google.com` 仍可用、舊分享連結自動轉址、你的筆記本不用搬移。
+
+**重點是——所有你要打的指令一個字都沒改**。套件作者也只改了 repo 名稱
+（`notebooklm-mcp-cli` → `gemini-notebook-mcp-cli`），套件本身維持原名：
+
+| 項目 | 名稱 | 有沒有改 |
+|------|------|---------|
+| 產品名 | Gemini Notebook（原 NotebookLM） | ✅ 改了 |
+| GitHub repo | `jacob-bd/gemini-notebook-mcp-cli` | ✅ 改了（舊網址會轉址） |
+| PyPI 套件名 | `notebooklm-mcp-cli` | ❌ 沒改 |
+| CLI 指令 | `nlm` | ❌ 沒改 |
+| MCP 執行檔 | `notebooklm-mcp` | ❌ 沒改 |
+| 認證目錄 | `~/.notebooklm-mcp-cli` | ❌ 沒改 |
+| MCP server 名稱 | `notebooklm` | ❌ 沒改 |
+
+> 所以看到下面指令裡還是 `notebooklm` 不要以為是漏改的——**那才是對的**。
+
+---
+
 ## 這個懶人包會幫你做什麼？
 
-讓你的 Claude Code 或 opencode 能夠直接操控 Google NotebookLM，包括：
+讓你的 Claude Code 或 opencode 能夠直接操控 Google Gemini Notebook，包括：
 - 建立 notebook、上傳資料來源
 - 產生教學簡報（Slide Deck）
 - 產生資訊圖表（Infographic）
@@ -35,21 +58,21 @@ tags:
 **三角關係圖**：
 
 ```
-Claude Code / opencode ←(MCP 協定)→ nlm (翻譯官) ←(Google 登入)→ NotebookLM
+Claude Code / opencode ←(MCP 協定)→ nlm (翻譯官) ←(Google 登入)→ Gemini Notebook
 ```
 
-這個懶人包會在你的電腦裡裝一個叫 `nlm` 的「翻譯官」，讓 AI agent 能透過它去操控 NotebookLM。
+這個懶人包會在你的電腦裡裝一個叫 `nlm` 的「翻譯官」，讓 AI agent 能透過它去操控 Gemini Notebook。
 
 - **為什麼需要翻譯官？**
-  NotebookLM 沒有官方 API，Google 沒開放程式直接呼叫。`nlm` 是用「模擬瀏覽器操作」的方式，假裝是你在點網頁。
+  Gemini Notebook 沒有官方 API，Google 沒開放程式直接呼叫。`nlm` 是用「模擬瀏覽器操作」的方式，假裝是你在點網頁。
 
 - **什麼是 MCP？**
   MCP（Model Context Protocol）是 AI agent 跟外部工具溝通的標準接口，就像手機的 USB-C——只要工具支援 MCP，agent 就能插上去用。
 
 - **為什麼要登入 Google？**
-  `nlm` 需要你的 Google 通行證，才能幫你去操作 NotebookLM。
+  `nlm` 需要你的 Google 通行證，才能幫你去操作 Gemini Notebook。
 
-**一句話記住**：你跟 agent 講中文，agent 叫 `nlm` 去幫你點 NotebookLM 的網頁，成品自動下載到你電腦的資料夾。
+**一句話記住**：你跟 agent 講中文，agent 叫 `nlm` 去幫你點 Gemini Notebook 的網頁，成品自動下載到你電腦的資料夾。
 
 ---
 
@@ -58,7 +81,7 @@ Claude Code / opencode ←(MCP 協定)→ nlm (翻譯官) ←(Google 登入)→ 
 在使用這個懶人包之前，請確認：
 
 - [ ] Claude Code 或 opencode 已安裝且能正常使用
-- [ ] 你有 Google 帳號（用來登入 NotebookLM）
+- [ ] 你有 Google 帳號（用來登入 Gemini Notebook）
 - [ ] 電腦有網路連線
 
 ---
@@ -77,8 +100,9 @@ uv tool install notebooklm-mcp-cli
 pip install notebooklm-mcp-cli
 ```
 
-> ✅ 目前本機驗證：v0.9.0 以 `uv tool install` 裝在 Python 3.13.14 環境下運作正常。
-> 裝完後用 `nlm --version` 確認可用。
+> ✅ 目前本機驗證：**v0.9.4** 以 `uv tool install` 安裝、MCP 連線正常。
+> 裝完後用 `nlm --version` 確認可用（它會順便告訴你是不是最新版）。
+> 套件名維持 `notebooklm-mcp-cli`，即使 repo 已更名為 `gemini-notebook-mcp-cli`。
 
 ---
 
@@ -112,7 +136,7 @@ pip install notebooklm-mcp-cli
 
 ---
 
-### 步驟一：安裝 NotebookLM MCP CLI 工具
+### 步驟一：安裝 Gemini Notebook MCP CLI 工具
 
 如果步驟零確認 `uv` 尚未安裝，請先安裝 uv：
 
@@ -126,7 +150,7 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-安裝 NotebookLM MCP CLI（擇一）：
+安裝 Gemini Notebook MCP CLI（擇一，套件名仍是 `notebooklm-mcp-cli`）：
 
 ```bash
 uv tool install notebooklm-mcp-cli
@@ -173,7 +197,9 @@ nlm doctor
 
 `nlm setup add` 從 0.8.x 起已內建支援多種 agent，用 `nlm setup add --help` 可看到完整清單
 （claude-code、gemini、github-copilot、cursor、windsurf、cline、antigravity、opencode、json）。
-0.9.0 實測清單不變。
+**0.9.4 實測清單不變**，另可用 `nlm setup add all` 互動式偵測並一次設定所有偵測到的工具。
+
+> 📌 `nlm` 的 CLI 說明文字目前仍寫「NotebookLM MCP server」，尚未跟著產品改名。不影響功能。
 
 > ⚠️ 注意 `nlm doctor` 的「AI Tool Configurations」只會列出它**偵測得到**的工具。
 > 桌面版 Claude Code 沒有 `claude` CLI，所以 doctor 不會把 claude-code 列進建議清單，
@@ -233,7 +259,7 @@ nlm setup list
 
 ```
 Documents/
-  └── NotebookLM/
+  └── GeminiNotebook/
       ├── slides/          ← 簡報（Slide Deck，可匯出 .pptx）
       ├── infographics/    ← 資訊圖表（多種風格可選）
       ├── audio/           ← 音訊概覽（Audio Overview）
@@ -246,14 +272,17 @@ Documents/
 
 建立完成後，告知使用者資料夾的完整路徑。
 
+> 📌 **之前照舊版懶人包建過 `Documents/NotebookLM/` 的人**：那個資料夾繼續用就好，
+> 不需要改名（純粹是本機存放位置，跟工具運作無關）。
+
 ---
 
 ### 步驟五：重啟 Agent 並驗證連接
 
 > 🖐️ **需要手動操作**：請使用者完全關閉 Claude Code / opencode，然後重新開啟。
 
-重新開啟後，測試 NotebookLM 連接是否成功：
-1. 嘗試列出使用者的 NotebookLM 筆記本清單
+重新開啟後，測試 Gemini Notebook 連接是否成功：
+1. 嘗試列出使用者的 Gemini Notebook 筆記本清單
 2. 如果成功顯示清單（即使是空的），代表連接成功
 
 ---
@@ -261,18 +290,18 @@ Documents/
 ### 步驟六：功能測試
 
 連接成功後，請執行一個簡單的測試：
-1. 在 NotebookLM 中建立一個新的 notebook，名稱為「測試筆記本」
+1. 在 Gemini Notebook 中建立一個新的 notebook，名稱為「測試筆記本」
 2. 確認建立成功
 3. 建立成功後，刪除這個測試筆記本
-4. 告知使用者：「✅ 全部完成！你的 AI agent 已成功連接 NotebookLM。」
+4. 告知使用者：「✅ 全部完成！你的 AI agent 已成功連接 Gemini Notebook。」
 
 ---
 
 ## 完成！接下來你可以這樣用
 
-連接成功後，你隨時可以在 agent 裡用自然語言操控 NotebookLM：
+連接成功後，你隨時可以在 agent 裡用自然語言操控 Gemini Notebook：
 
-| 你說的話 | NotebookLM 會做的事 | 存放位置 |
+| 你說的話 | Gemini Notebook 會做的事 | 存放位置 |
 |----------|-------------------|---------|
 | 「幫我用這份 PDF 建一個 notebook」 | 建立 notebook + 上傳 PDF 作為資料來源 | — |
 | 「幫我產生教學簡報」 | 生成 Slide Deck（可匯出 .pptx） | slides/ |
@@ -292,7 +321,7 @@ Documents/
 > 對 Agent 說以下這段話，它會幫你清除之前的設定，從頭再來：
 
 **請對 Agent 說：**
-「上次 NotebookLM 懶人包執行失敗了，幫我清除之前的設定，重新跑一次。」
+「上次 Gemini Notebook 懶人包執行失敗了，幫我清除之前的設定，重新跑一次。」
 
 **Agent 會自動執行以下復原步驟：**
 
@@ -313,10 +342,11 @@ Documents/
 | 登入後 `nlm doctor` 顯示未認證 | 重新執行 `nlm login`，確認瀏覽器登入成功 |
 | `nlm doctor` 說 cookies 正常，但 MCP 工具回 `Authentication expired` | cookies 會過期而 `doctor` 不一定看得出來。執行 `nlm login` 重新認證（若 Chrome 已存 Google 登入會自動完成，不需手動點），再呼叫 `refresh_auth` 讓 MCP 重載憑證，不必重啟 Claude Code |
 | 瀏覽器沒有自動開啟 | 手動開啟瀏覽器登入 Google，或嘗試 `nlm login --manual` |
-| Claude Code 看不到 NotebookLM 工具 | 確認設定寫在 `~/.claude.json` 而非 `settings.json`，並完全關閉再重啟 Claude Code |
+| Claude Code 看不到 Gemini Notebook 工具 | 確認設定寫在 `~/.claude.json` 而非 `settings.json`，並完全關閉再重啟 Claude Code |
+| 指令裡怎麼還是 `notebooklm`？ | 正常。產品改名為 Gemini Notebook，但套件名、CLI、執行檔、MCP server 名稱都沒改（見開頭的更名對照表） |
 | `nlm setup add claude-code` 說找不到 `claude` 指令 | 桌面版沒有 CLI，屬正常。改為手動寫入 `~/.claude.json`（見步驟三），**不要**照它建議寫進 `settings.json` |
 | `Unrecognized field: mcpServers` | 你寫錯檔案了。MCP 設定要放 `~/.claude.json` 或專案的 `.mcp.json`，不能放 `settings.json` |
-| opencode 看不到 NotebookLM 工具 | 0.8.x 直接執行 `nlm setup add opencode` 即可；舊版才需手動編 `opencode.json` |
+| opencode 看不到 Gemini Notebook 工具 | 0.8.x 直接執行 `nlm setup add opencode` 即可；舊版才需手動編 `opencode.json` |
 | `ModuleNotFoundError: No module named 'notebooklm_tools'` | 舊版 exe 的問題，0.8.8 已修復。先 `nlm doctor` 確認實際路徑，必要時升級或改用 pip 安裝版 |
 | Windows 上指令格式錯誤 | 確認使用 PowerShell 而非 CMD，或改用 Git Bash |
 | `nlm setup list` 在 Windows 顯示亂碼 | 這是已知的 cp950 編碼問題，不影響功能 |
@@ -332,11 +362,13 @@ Documents/
 | 2026-06-10 | v0.3 | 加入 opencode 支援、pip 安裝方式、`.local\bin` 路徑陷阱警告、`nlm setup list` 編碼問題說明、版本更新至 v0.6.11 |
 | 2026-07-22 | v0.4 | 實測 nlm 0.8.8：opencode 已原生支援（`nlm setup add opencode`）、`.local\bin` 路徑陷阱已修復、`nlm setup add claude-code` 在桌面版會失敗且其建議的 `settings.json` 寫法無效，改為手動寫入 `~/.claude.json` |
 | 2026-07-22 | v0.5 | 實測 nlm 0.9.0（uv + Python 3.13.14）：v0.4 對桌面版的判斷全部複驗成立；更新本機驗證版本、補上 `nlm doctor` 不列出 claude-code 的說明；MCP server 版本 3.4.4，`--transport stdio` 為預設值 |
+| 2026-08-01 | v0.6 | 產品更名 **Gemini Notebook**（Google 2026-07-16 公告）：全文改用新名稱、檔名改為 `01-連接-Gemini-Notebook.md`、技能改名 `claude-gemini-notebook`；新增開頭的「更名對照表」釐清哪些字串**沒有**改；GitHub 連結換成 `gemini-notebook-mcp-cli`；實測 nlm **0.9.4**（`setup add` 清單不變、多了 `all`） |
 
 ---
 
 ## 相關連結
 
-- [notebooklm-mcp-cli GitHub](https://github.com/jacob-bd/notebooklm-mcp-cli)
+- [gemini-notebook-mcp-cli GitHub](https://github.com/jacob-bd/gemini-notebook-mcp-cli)（原 `notebooklm-mcp-cli`，舊網址會自動轉址）
+- [Google 官方更名公告](https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/)
 - [NotebookLM Downloader MCP](https://lobehub.com/mcp/pmane-notebooklm-downloader)
 - [[README|Claude Code 懶人包索引]]

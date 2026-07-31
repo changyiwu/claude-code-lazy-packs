@@ -12,7 +12,7 @@ description: Claude Code 懶人包全集 — 環境建置、MCP 串接、技能�
 | 編號 | Skill 名稱 | 說明 |
 |------|-----------|------|
 | 00 | `00-env-setup` | 安裝 uv 等基礎工具 |
-| 01 | `01-notebooklm` | 連接 NotebookLM MCP |
+| 01 | `01-gemini-notebook` | 連接 Gemini Notebook（原 NotebookLM）MCP |
 | 02 | `02-github` | 連接 GitHub CLI + push 驗證 |
 | 03 | `03-obsidian` | 連接 Obsidian MCPVault |
 | 04 | `04-supabase` | 連接 Supabase 資料庫 |

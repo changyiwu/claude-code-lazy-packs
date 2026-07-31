@@ -1,9 +1,12 @@
 ---
-name: claude-notebooklm
-description: Claude Code 連接 NotebookLM MCP。說「連接 NotebookLM」時載入。
+name: claude-gemini-notebook
+description: Claude Code 連接 Gemini Notebook（原 NotebookLM）MCP。說「連接 Gemini Notebook」或「連接 NotebookLM」時載入。
 ---
 
-# 連接 NotebookLM（Claude Code 版）
+# 連接 Gemini Notebook（原 NotebookLM，Claude Code 版）
+
+> 產品 2026-07-16 由 NotebookLM 更名為 Gemini Notebook，但套件名、CLI 指令、
+> 認證目錄、MCP server 名稱**全部沿用 `notebooklm`**，以下指令照打即可。
 
 ## 步驟
 
@@ -45,7 +48,7 @@ nlm setup add claude-code
 `~/.local/bin/notebooklm-mcp`。`--transport stdio` 是預設值，省略亦可。
 
 ### 4. 驗證
-重啟 Claude Code 後，問：「請列出我所有的 NotebookLM 筆記本。」
+重啟 Claude Code 後，問：「請列出我所有的 Gemini Notebook 筆記本。」
 
 回報格式：nlm 版本、登入狀態（nlm doctor）、MCP 設定、筆記本讀取測試結果。
 

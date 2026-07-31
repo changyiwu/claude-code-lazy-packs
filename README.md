@@ -47,7 +47,7 @@ AI 會自動讀取 `SKILL.md`（安裝入口），列出所有技能，讓你選
 | 編號 | 懶人包名稱 | 狀態 | 說明 |
 |------|-----------|------|------|
 | 00 | [環境建置](00-環境建置.md) | v0.4 | 安裝 Git、GitHub CLI、uv 等基礎工具 |
-| 01 | [連接 NotebookLM](01-連接-NotebookLM.md) | v0.5 | 安裝 NotebookLM MCP + 產生簡報與圖表 |
+| 01 | [連接 Gemini Notebook](01-連接-Gemini-Notebook.md) | v0.6 | 安裝 Gemini Notebook（原 NotebookLM）MCP + 產生簡報與圖表 |
 | 02 | [連接 GitHub](02-連接-GitHub.md) | v0.2 | 連接 GitHub + GitHub Pages 教材上線 |
 | 03 | [建立第二大腦 Obsidian](03-建立第二大腦-Obsidian.md) | v0.6 | 安裝 Obsidian + MCP 連接 + Google Drive 同步 |
 | 04 | [連接 Supabase 資料庫](04-連接-Supabase-資料庫.md) | v0.2 | 連接雲端資料庫，讓程式「記得住」 |

@@ -8,7 +8,7 @@ description: 一次安裝所有 Claude Code 懶人包技能。說「全部安裝
 依序載入並執行：
 
 1. 00-env-setup — 環境建置
-2. 01-notebooklm — NotebookLM
+2. 01-gemini-notebook — Gemini Notebook（原 NotebookLM）
 3. 02-github — GitHub
 4. 03-obsidian — Obsidian
 5. 04-supabase — Supabase

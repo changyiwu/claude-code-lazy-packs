@@ -25,7 +25,7 @@
 ```
 claude-code-lazy-packs/
 ├── 00-環境建置.md
-├── 01-連接-NotebookLM.md
+├── 01-連接-Gemini-Notebook.md
 ├── 02-連接-GitHub.md
 ├── 03-建立第二大腦-Obsidian.md
 ├── 04-連接-Supabase-資料庫.md
@@ -34,7 +34,7 @@ claude-code-lazy-packs/
 ├── 07-設定Gemini免費API.md
 ├── 08-安裝gpt-image-2生圖.md
 ├── skills/              ← 對應的可安裝技能（npx skills add）
-│   ├── 00-env-setup/ 01-notebooklm/ 02-github/ 03-obsidian/
+│   ├── 00-env-setup/ 01-gemini-notebook/ 02-github/ 03-obsidian/
 │   ├── 04-supabase/ 05-firebase/ 06-ollama/ 07-gemini/
 │   ├── 08-draw/
 │   └── install-all/     ← 一次安裝全部，不佔編號
