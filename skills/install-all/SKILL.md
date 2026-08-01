@@ -11,10 +11,7 @@ description: 一次安裝所有 Claude Code 懶人包技能。說「全部安裝
 2. 01-gemini-notebook — Gemini Notebook（原 NotebookLM）
 3. 02-github — GitHub
 4. 03-obsidian — Obsidian
-5. 04-supabase — Supabase
-6. 05-firebase — Firebase
-7. 06-ollama — 本地 AI
-8. 07-gemini — Gemini API
-9. 08-draw — 生圖技能
+5. 04-firebase — Firebase
+6. 05-draw — 生圖技能
 
-每完成一個報告進度，最終回報總表：9 項各別的成功/失敗/已跳過狀態。
+每完成一個報告進度，最終回報總表：6 項各別的成功/失敗/已跳過狀態。

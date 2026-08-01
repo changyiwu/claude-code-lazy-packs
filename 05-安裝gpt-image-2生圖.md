@@ -1,4 +1,4 @@
-# 懶人包 08：把 ChatGPT Image 2.0 裝進 Claude Code
+# 懶人包 05：把 ChatGPT Image 2.0 裝進 Claude Code
 
 > 目標：五分鐘內完成安裝，讓 Claude Code 能夠用一句話生圖
 > 費用：第一次需要儲值 OpenAI 最少 US$5；每張圖約 **NT$0.3**（low 品質）
@@ -114,7 +114,7 @@ description: OpenAI gpt-image-2 生圖技能（全域可用）。當使用者要
 
 # 生圖技能（gpt-image-2）
 
-> 前置安裝（API Key／儲值／Individual 驗證／裝 openai 套件）請看懶人包 `08-安裝gpt-image-2生圖.md`。
+> 前置安裝（API Key／儲值／Individual 驗證／裝 openai 套件）請看懶人包 `05-安裝gpt-image-2生圖.md`。
 > 本 skill 是安裝完成後「拿來就能用」的操作版。
 
 ## 觸發情境

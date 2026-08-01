@@ -1,6 +1,6 @@
-# Claude Code 懶人包 #05：連接 Firebase 資料庫
+# Claude Code 懶人包 #04：連接 Firebase 資料庫
 
-> 版本：v0.9
+> 版本：v1.0
 > 更新日期：2026-07-24
 
 > 📌 **本懶人包可獨立執行**：會自動檢查並安裝所需工具，不需要先看過其他懶人包。你只要確認下方「先備條件」即可開始。
@@ -17,11 +17,13 @@
 - **千人研習也撐得住**（免費並發連線 100 萬）
 - **永遠不會閒置暫停**
 
-> 💡 **對老師而言，這是比 Supabase 更友善的預設選擇**。Supabase（懶人包 #04）適合需要重度 SQL 統計分析的場景，但對絕大多數教學工具，Firebase 的限制更少、更省心。
+> 💡 **對老師而言，這是比 Supabase 更友善的預設選擇**。Supabase 適合需要重度 SQL 統計分析的場景，但對絕大多數教學工具，Firebase 的限制更少、更省心。
 
 ### Firebase vs Supabase，該選哪個？
 
-| 比較項目 | Supabase（懶人包 #04） | Firebase（本懶人包） |
+> ℹ️ 本系列**不再提供 Supabase 懶人包**，下表只是給你判斷用的對照，不代表要你去裝 Supabase。
+
+| 比較項目 | Supabase | Firebase（本懶人包） |
 |---------|----------------------|---------------------|
 | 資料庫類型 | SQL（像 Excel 表格） | NoSQL（像 JSON 文件） |
 | 免費專案數 | 2 個 | 無限 |
@@ -397,6 +399,7 @@ npx -y firebase-tools@latest login
 | 2026-04-14 | v0.5 | 加入並發連線比較（Supabase 200 vs Firebase 100 萬）與場景對照表，明確建議千人研習用 Firebase |
 | 2026-04-14 | v0.6 | 確認 MCP 可讓 Claude 用自然語言查 Firestore 資料；重新定位為「對老師更友善的預設選擇」 |
 | 2026-04-14 | v0.7 | **發現 Firebase MCP 其實有完整 Firestore CRUD 工具**（list/query/add/update/delete），全面修正之前錯誤陳述 |
+| 2026-08-02 | v1.0 | 編號由 #05 改為 #04（Supabase 懶人包已下架，原 05–08 遞補）；移除指向 Supabase 懶人包的連結與交叉引用，Supabase 僅保留為對照說明 |
 | 2026-07-24 | v0.9 | **改為完全不碰線上規則**：步驟二之二不再建立/部署 `firestore.rules`，只建 `firebase.json` + `.firebaserc` 讓 MCP 的 `firestore_*` 工具生效；規則改由使用者自行在 Console 設定，若要 Claude 協助改規則會先讀現況並確認、絕不自動覆蓋 |
 
 ---
@@ -406,5 +409,4 @@ npx -y firebase-tools@latest login
 - [Firebase 官網](https://firebase.google.com)
 - [Firebase MCP Server 官方文件](https://firebase.google.com/docs/ai-assistance/mcp-server)
 - [Cloud Firestore 文件](https://firebase.google.com/docs/firestore)
-- [懶人包 #04：連接 Supabase 資料庫](04-連接-Supabase-資料庫.md)
 - [懶人包 #02：連接 GitHub](02-連接-GitHub.md)（教材上線用）

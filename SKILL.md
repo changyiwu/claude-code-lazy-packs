@@ -15,11 +15,8 @@ description: Claude Code 懶人包全集 — 環境建置、MCP 串接、技能�
 | 01 | `01-gemini-notebook` | 連接 Gemini Notebook（原 NotebookLM）MCP |
 | 02 | `02-github` | 連接 GitHub CLI + push 驗證 |
 | 03 | `03-obsidian` | 連接 Obsidian MCPVault |
-| 04 | `04-supabase` | 連接 Supabase 資料庫 |
-| 05 | `05-firebase` | 連接 Firebase 資料庫 |
-| 06 | `06-ollama` | 安裝本地 AI Ollama |
-| 07 | `07-gemini` | 設定 Gemini 免費 API |
-| 08 | `08-draw` | 安裝 gpt-image-2 生圖 skill |
+| 04 | `04-firebase` | 連接 Firebase 資料庫 |
+| 05 | `05-draw` | 安裝 gpt-image-2 生圖 skill |
 | — | `install-all` | 一次安裝全部 |
 
 ## 步驟二：讓使用者選擇

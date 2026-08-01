@@ -5,7 +5,7 @@ description: OpenAI gpt-image-2 生圖技能（全域可用）。當使用者要
 
 # 生圖技能（gpt-image-2）
 
-> 前置安裝（API Key／儲值／Individual 驗證／裝 openai 套件）請看懶人包 `08-安裝gpt-image-2生圖.md`。
+> 前置安裝（API Key／儲值／Individual 驗證／裝 openai 套件）請看懶人包 `05-安裝gpt-image-2生圖.md`。
 > 本 skill 是安裝完成後「拿來就能用」的操作版。
 
 ## 觸發情境
