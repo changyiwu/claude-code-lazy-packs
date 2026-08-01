@@ -2,8 +2,8 @@
 title: 'Claude Code 懶人包 #06：安裝本地 AI（Ollama）'
 date: '2026-04-04'
 type: 懶人包
-version: v0.2
-status: 初版（實作後更新）
+version: v0.3
+status: 已實測
 tags:
   - Claude-Code
   - 懶人包
@@ -13,8 +13,8 @@ tags:
 ---
 # Claude Code 懶人包 #06：安裝本地 AI（Ollama）
 
-> 版本：v0.2
-> 更新日期：2026-04-04
+> 版本：v0.3
+> 更新日期：2026-08-01（實測環境：Ollama 0.32.5 / Windows 11）
 
 > 📌 **本懶人包可獨立執行**：會自動檢查並安裝所需工具，不需要先看過其他懶人包。你只要確認下方「先備條件」即可開始。
 
@@ -57,9 +57,12 @@ tags:
 
 1. **確認作業系統**：確認是 Windows / macOS / Linux
 2. **確認電腦記憶體大小**：
-   - Windows：`wmic computersystem get totalphysicalmemory`
+   - Windows：`(Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory`
    - macOS：`sysctl -n hw.memsize`
    - Linux：`free -h`
+
+   > ⚠️ **不要用 `wmic`**：Windows 11 已經移除這個指令，執行會出現「不是內部或外部命令」。
+   > 一律改用上面的 `Get-CimInstance` 寫法。
 3. **確認可用硬碟空間**：至少需要 10GB
 4. **確認網路連線**：下載模型需要網路
 5. **根據記憶體大小決定模型版本**：
@@ -69,6 +72,10 @@ tags:
 | 8GB 以下 | ⚠️ 告知使用者建議改用 Gemini 免費 API（懶人包 #07） | — |
 | 8-16GB | `gemma4:e2b` | 約 5GB |
 | 16GB 以上 | `gemma4:e4b` | 約 10GB |
+| 32GB 以上（進階） | `gemma4:12b` | 約 7.6GB，品質更好但吃資源 |
+
+> `e2b`／`e4b` 的 e 是 effective parameters（有效參數量），是 Gemma 4 為記憶體有限的裝置設計的版本。
+> 這三個標籤都確實存在於 Ollama registry，不是筆誤。
 
 > 告知使用者偵測到的記憶體大小和建議的模型版本，確認後再繼續。
 
@@ -187,8 +194,25 @@ ollama rm [模型名稱]
 | `ollama: command not found` | 重啟 Claude Code 桌面版 |
 | 模型下載中斷 | 重新執行 `ollama pull [模型名稱]`，會從中斷處繼續 |
 | 回應非常慢（超過 30 秒） | 電腦記憶體不足，建議改用較小的模型或改用 Gemini API |
-| 瀏覽器呼叫 Ollama 失敗（CORS） | 需設定 Ollama 允許跨域存取：`OLLAMA_ORIGINS=* ollama serve` |
+| 瀏覽器呼叫 Ollama 失敗（CORS） | 需設定 Ollama 允許跨域存取，**指令依平台不同**（見下方） |
+| `wmic 不是內部或外部命令` | Windows 11 已移除 `wmic`，改用 `(Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory` |
 | （實作後持續補充） | |
+
+### CORS 設定指令（依平台）
+
+**Windows（PowerShell）**：
+```powershell
+$env:OLLAMA_ORIGINS="*"; ollama serve
+```
+
+**macOS / Linux（bash）**：
+```bash
+OLLAMA_ORIGINS=* ollama serve
+```
+
+> ⚠️ `OLLAMA_ORIGINS=* ollama serve` 是 bash 語法，**在 PowerShell 會失敗**（PowerShell 沒有這種行內環境變數前綴寫法）。
+> 要永久生效，Windows 可用 `setx OLLAMA_ORIGINS "*"` 後重開 Ollama。
+> 正式對外的工具不要用 `*`，改成指定來源網址。
 
 ---
 
@@ -198,6 +222,7 @@ ollama rm [模型名稱]
 |------|------|---------|
 | 2026-04-04 | v0.1 | 初版 |
 | 2026-04-04 | v0.2 | 加入環境檢查、自動選擇模型、復原機制 |
+| 2026-08-01 | v0.3 | 實測修正（Ollama 0.32.5 / Windows 11）：`wmic` 已被 Windows 11 移除，記憶體檢查改用 `Get-CimInstance`；CORS 指令拆成 PowerShell 與 bash 兩種寫法（原寫法只適用 bash）；確認 `gemma4:e2b`／`e4b` 標籤存在並補上 `12b` 選項 |
 
 ---
 

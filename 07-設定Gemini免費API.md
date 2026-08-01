@@ -2,8 +2,8 @@
 title: 'Claude Code 懶人包 #07：設定 Gemini 免費 API'
 date: '2026-04-04'
 type: 懶人包
-version: v0.2
-status: 初版（實作後更新）
+version: v0.3
+status: 已實測
 tags:
   - Claude-Code
   - 懶人包
@@ -13,8 +13,8 @@ tags:
 ---
 # Claude Code 懶人包 #07：設定 Gemini 免費 API
 
-> 版本：v0.2
-> 更新日期：2026-04-04
+> 版本：v0.3
+> 更新日期：2026-08-01
 
 > 📌 **本懶人包可獨立執行**：會自動檢查並安裝所需工具，不需要先看過其他懶人包。你只要確認下方「先備條件」即可開始。
 
@@ -90,11 +90,21 @@ tags:
 setx GEMINI_API_KEY "[使用者的API Key]"
 ```
 
-**macOS / Linux**：
+**macOS**（Catalina 之後預設是 zsh）：
+```bash
+echo 'export GEMINI_API_KEY="[使用者的API Key]"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+**Linux**（預設多為 bash）：
 ```bash
 echo 'export GEMINI_API_KEY="[使用者的API Key]"' >> ~/.bashrc
 source ~/.bashrc
 ```
+
+> ⚠️ **先確認使用者的 shell**：執行 `echo $SHELL`。
+> 顯示 `/bin/zsh` 就寫 `~/.zshrc`，顯示 `/bin/bash` 就寫 `~/.bashrc`。
+> macOS 從 Catalina 起預設改成 zsh，**寫進 `~/.bashrc` 不會生效**。
 
 > ⚠️ **安全提醒**：
 > - API Key 不要寫在 HTML 或 JavaScript 原始碼中（公開網頁看得到）
@@ -115,6 +125,20 @@ curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:g
 
 > 如果回傳正常的 JSON 回應，代表 API Key 設定成功。
 > 如果回傳錯誤，檢查 API Key 是否正確複製（前後不能有空格）。
+
+### 該用哪個模型？
+
+`gemini-2.5-flash` 目前**仍是 stable 可用**，上面的驗證指令照打即可。但已有更新的選擇：
+
+| 模型 | 適合場景 |
+|------|---------|
+| `gemini-3.6-flash` | 速度與智慧平衡，**一般教學用途首選** |
+| `gemini-3.5-flash-lite` | 最快、最省，適合大量簡單請求 |
+| `gemini-2.5-flash` | 仍可用，舊教材與既有程式相容 |
+| `gemini-2.5-pro` | 需要複雜推理時 |
+
+> ⚠️ **Gemini 2.0 Flash 與 2.0 Flash-Lite 已經停止服務**，舊教材若寫 `gemini-2.0-flash` 要改掉。
+> 模型會持續更新，實際清單以 [官方模型頁](https://ai.google.dev/gemini-api/docs/models) 為準。
 
 ---
 
@@ -172,7 +196,8 @@ Claude 會自動：
 |------|------|
 | API 回傳 401 錯誤 | API Key 無效，到 Google AI Studio 重新申請 |
 | API 回傳 429 錯誤 | 超過免費速率限制，等一分鐘再試 |
-| 環境變數設定後讀不到 | Windows 需重啟 Claude Code；macOS 需 `source ~/.bashrc` |
+| 環境變數設定後讀不到 | Windows 需重啟 Claude Code；macOS 需 `source ~/.zshrc`（不是 `~/.bashrc`，先用 `echo $SHELL` 確認） |
+| API 回傳 404 或 model not found | 模型代號已停止服務。`gemini-2.0-flash` 系列已下線，改用 `gemini-3.6-flash` 或 `gemini-2.5-flash` |
 | 不確定 Key 是否正確 | 到 https://aistudio.google.com/apikey 查看已建立的 Key |
 | 擔心被收費 | 免費方案不需要信用卡，不會產生任何費用 |
 | （實作後持續補充） | |
@@ -185,7 +210,7 @@ Claude 會自動：
 |------|---------|
 | 費用 | $0（完全免費） |
 | 信用卡 | 不需要 |
-| 可用模型 | Gemini 2.5 Flash、Flash-Lite 等 |
+| 可用模型 | Gemini 3.6 Flash、3.5 Flash-Lite、2.5 Flash／Pro 等 |
 | 速率限制 | 每分鐘有請求上限（一般教學使用不會超過） |
 | 使用期限 | 無期限 |
 
@@ -197,6 +222,7 @@ Claude 會自動：
 |------|------|---------|
 | 2026-04-04 | v0.1 | 初版 |
 | 2026-04-04 | v0.2 | 加入環境檢查、安全提醒、復原機制 |
+| 2026-08-01 | v0.3 | 實測修正：macOS 環境變數改寫入 `~/.zshrc`（Catalina 後預設 zsh，原本寫 `~/.bashrc` 不生效）；補上模型選擇表，確認 `gemini-2.5-flash` 仍可用、新增 3.6 Flash 與 3.5 Flash-Lite，標註 2.0 系列已停止服務 |
 
 ---
 

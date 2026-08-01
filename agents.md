@@ -16,11 +16,13 @@
 - [x] 階段一：移除班級工具懶人包、全倉重新編號為連續 00–09
 - [x] 階段二：修正過時的 MCP 設定說明（`settings.json` → `~/.claude.json`／`.mcp.json`）
 - [x] 階段三：技能命名統一 `claude-` 前綴，與其他 agent 區隔
-- [ ] 階段四：實測剩餘懶人包 #04 Supabase、#06 Ollama、#07 Gemini（很可能也有過時的 MCP 指引）
+- [x] 階段四：實測 #04 Supabase、#06 Ollama、#07 Gemini 並修正（三份皆升 v0.3；`settings.json` 過時指引已於階段二清乾淨，本次確認無殘留）
 - [ ] 階段五：決定 `TEMPLATE.md` 的版本編號規則要沿用原作者還是改成自己的規範
 - [x] 階段六：移除「第二大腦設定指南」懶人包，原 05–09 依序遞補為 04–08
 - [x] 階段七：跟進 NotebookLM → Gemini Notebook 更名（#01 檔名、技能名、全域副本）
 - [ ] 階段八：定期巡檢各懶人包引用的外部產品／套件是否改名或搬家（本次更名是被動發現的）
+- [ ] 階段九：補跑 #04 Supabase 遠端 MCP 的 OAuth 實機驗證（v0.3 依官方文件撰寫，尚未實跑）
+- [ ] 階段十（評估中）：四個 agent 懶人包的共用內容抽成「單一來源＋產生器」，對外維持四個公開 repo（本次擱置，待階段四之後再議）
 
 ## 資料夾結構
 
@@ -73,6 +75,7 @@ claude-code-lazy-packs/
 
 ## 最近進度
 
+- 2026-08-01：階段四完成。#04 Supabase 階段二全面改寫（官方已改遠端 MCP + OAuth，移除 service_role key 流程）、#06 Ollama 修 `wmic` 與 CORS 語法、#07 Gemini 修 zsh 與模型代號；三份技能檔同步，其中兩個原有硬錯誤（`gemini-2.0-flash` 已停服、`@ollama/mcp-server` 不存在於 npm）。
 - 2026-08-01：NotebookLM 更名 Gemini Notebook，#01 懶人包升 v0.6、技能改名 `claude-gemini-notebook`，四個 agent 全域副本對齊。
 - 2026-07-22：完成 NotebookLM 懶人包 v0.5 的 nlm 0.9.0 實測資訊、桌面版 Claude Code 限制與 MCP 說明同步。
 - 2026-07-22：移除 #04 第二大腦設定指南，原 05–09 遞補為 04–08；生圖技能全域路徑統一為 `claude-draw`。
