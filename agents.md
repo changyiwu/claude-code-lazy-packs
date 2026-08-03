@@ -56,6 +56,18 @@ claude-code-lazy-packs/
 | L2 | GitHub | [changyiwu/claude-code-lazy-packs](https://github.com/changyiwu/claude-code-lazy-packs)（**public**，刻意公開） | 指定時 |
 | L3 | Obsidian | `claude-code-lazy-packs/專案工作流程.md` | 有需要時 |
 
+## 三個檔案的職責（依「時效性」分家，不是依「詳細程度」）
+
+| 檔案 | 時效 | 寫入方式 | 放什麼 |
+|------|------|---------|--------|
+| `handoff.md` | **只對下一個 session 有效**，過期即丟 | 每次收工整份重寫 | 做到哪、下一步、**這次**的暫時 workaround |
+| `agents.md`（本檔） | **長期有效**，每個 session 都適用 | 只有規則本身變了才改 | 目標、路線圖、常設規則、結構 |
+| Obsidian／`git log` | **歷史**：發生過什麼、為什麼 | 只增不刪 | 決策紀錄、踩坑完整版、逐次進度 |
+
+驗收標準：**`handoff.md` 整份刪掉，不應損失任何長期資訊**——會的話代表該升級進本檔卻沒升級。
+
+**本檔不要出現的東西**：❌ `## 最近進度`／逐次工作紀錄、❌ 決策理由與踩坑完整版。2026-08-03 移除了 `## 最近進度`，內容逐條比對後已在 L3 筆記的〈🗓️ 最近更動紀錄〉——**是主動移除，不是遺漏，不要補回來**。踩過的坑只把**結論**收斂成一條祈使句寫進〈工作約定〉，原因留 L3。
+
 ## 工作約定
 
 - 任何 Agent、任何電腦：**開工先讀 `handoff.md`，收工必更新 `handoff.md`**
@@ -69,11 +81,3 @@ claude-code-lazy-packs/
 - **技能命名**：repo 資料夾帶編號，但 frontmatter `name` 與安裝後的全域資料夾一律 `claude-<主題>`（例：`skills/02-github/` → `name: claude-github` → `~/.claude/skills/claude-github/`）
 - **改懶人包必同步四處**：`README.md` 清單表、`SKILL.md` 對照表、`skills/install-all/SKILL.md` 的順序與總項數、其他懶人包的交叉引用
 - **LICENSE 不可動**：MIT 要求保留原作者著作權聲明；`05-安裝gpt-image-2生圖.md` 結尾的作者與頻道資訊同理
-
-## 最近進度
-
-- 2026-08-02：階段十一完成。下架 Supabase／Ollama／Gemini 免費 API 三份懶人包與技能，Firebase 05→04、生圖 08→05 遞補，編號回到連續 00–05；Firebase 包升 v1.0（移除指向已刪 Supabase 包的死連結，比較表保留為純產品對照）；install-all 總項數 9→6；階段四才實測過的三份中有兩份在此下架，階段九（Supabase OAuth 實測）連帶取消。
-- 2026-08-01：階段四完成。#04 Supabase 階段二全面改寫（官方已改遠端 MCP + OAuth，移除 service_role key 流程）、#06 Ollama 修 `wmic` 與 CORS 語法、#07 Gemini 修 zsh 與模型代號；三份技能檔同步，其中兩個原有硬錯誤（`gemini-2.0-flash` 已停服、`@ollama/mcp-server` 不存在於 npm）。
-- 2026-08-01：NotebookLM 更名 Gemini Notebook，#01 懶人包升 v0.6、技能改名 `claude-gemini-notebook`，四個 agent 全域副本對齊。
-- 2026-07-22：完成 NotebookLM 懶人包 v0.5 的 nlm 0.9.0 實測資訊、桌面版 Claude Code 限制與 MCP 說明同步。
-- 2026-07-22：移除 #04 第二大腦設定指南，原 05–09 遞補為 04–08；生圖技能全域路徑統一為 `claude-draw`。
