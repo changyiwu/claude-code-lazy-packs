@@ -81,3 +81,9 @@ claude-code-lazy-packs/
 - **技能命名**：repo 資料夾帶編號，但 frontmatter `name` 與安裝後的全域資料夾一律 `claude-<主題>`（例：`skills/02-github/` → `name: claude-github` → `~/.claude/skills/claude-github/`）
 - **改懶人包必同步四處**：`README.md` 清單表、`SKILL.md` 對照表、`skills/install-all/SKILL.md` 的順序與總項數、其他懶人包的交叉引用
 - **LICENSE 不可動**：MIT 要求保留原作者著作權聲明；`05-安裝gpt-image-2生圖.md` 結尾的作者與頻道資訊同理
+- **遠端 MCP 的 JSON 一定要寫 `"type": "http"`**，只有 `url` 會被當成 stdio server 而直接跳過
+- **桌面版 Claude Code 沒有 `claude` CLI**，MCP 設定要用 `~/.claude.json` 或專案的 `.mcp.json`，**不可寫入 `settings.json`**
+- **看到指令裡還是 `notebooklm` 不要當成漏改**（見 #01 開頭的對照表）：套件名、CLI、認證目錄都沒有跟著更名
+- **`git rm` 在 Windows 會留下空資料夾**，刪技能後記得用 `Remove-Item` 檢查並清掉
+- **階段九（Supabase 遠端 MCP 的 OAuth 實機驗證）已取消**，標的已下架，不用再補跑；階段四對 #06 #07 的修正隨檔案一起消失，要復活的話內容在 `0537ab8`
+- repo 為公開專案，不提交 `.mcp.json`、本機路徑、API key 或 token
