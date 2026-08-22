@@ -59,7 +59,7 @@ AI 會自動讀取 `SKILL.md`（安裝入口），列出所有技能，讓你選
 
 ## 致謝與來源
 
-本專案改編自 **三師爸（宋睿偉）** 的 [claude-code-lazy-packs](https://github.com/mathruffian-dot/claude-code-lazy-packs)，依自身使用需求調整內容與編號。原始著作權歸原作者所有。
+本專案改編自原作者 **三師爸** 的 [claude-code-lazy-packs](https://github.com/mathruffian-dot/claude-code-lazy-packs)，依自身使用需求調整內容與編號。原始著作權歸原作者所有。
 
 ## 授權
 

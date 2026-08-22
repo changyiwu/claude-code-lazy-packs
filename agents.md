@@ -5,7 +5,7 @@
 
 ## 專案簡介
 
-公開發布的 Claude Code 懶人包全集。每份懶人包是一個編號 MD 檔，使用者丟給 Claude Code 就能自動完成一項設定（環境建置、MCP 串接、API 設定等）；每份懶人包在 `skills/` 有對應的可安裝技能。改編自三師爸（宋睿偉）的 `mathruffian-dot/claude-code-lazy-packs`，README 已具名致謝。
+公開發布的 Claude Code 懶人包全集。每份懶人包是一個編號 MD 檔，使用者丟給 Claude Code 就能自動完成一項設定（環境建置、MCP 串接、API 設定等）；每份懶人包在 `skills/` 有對應的可安裝技能。改編自原作者三師爸的 `mathruffian-dot/claude-code-lazy-packs`，README 已具名致謝。
 
 ## 關鍵時程
 

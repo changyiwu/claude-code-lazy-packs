@@ -364,6 +364,4 @@ python "$HOME/.claude/skills/claude-draw/draw.py" "一隻可愛的黑貓，扁�
 
 ---
 
-**作者**：三師爸（宋睿偉）
-**頻道**：[三師爸 Sense Bar](https://youtube.com/@SenseBar)
 **最後更新**：2026-04-23
