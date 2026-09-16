@@ -38,6 +38,9 @@ nlm setup add claude-code
 ——**那個建議是錯的**，現行 schema 不接受 `mcpServers`。
 
 改為手動寫入 `~/.claude.json` 最上層（保留原有內容，只新增 `mcpServers`）：
+
+**Windows**：
+
 ```json
 "notebooklm": {
   "command": "C:/Users/[使用者]/.local/bin/notebooklm-mcp.exe",

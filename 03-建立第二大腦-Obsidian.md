@@ -199,6 +199,8 @@ npm install -g @bitbonsai/mcpvault
 
 在這個檔案的**最上層**加入 `mcpServers`（這個檔案通常已經存在且內容很多，請保留原有內容，只新增這一段）：
 
+**Windows**：
+
 ```json
 {
   "mcpServers": {
